@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}¿Cuándo Vence? — Crear Rótulos{% endblock %}
+{% block content %}
+<h1>Crear Rótulos</h1>
+<p style="color: var(--text-secondary); margin-bottom: 24px; font-size:0.85rem;">
+    Seleccioná los productos, asignales una fecha de elaboración y generá los rótulos para imprimir.
+</p>
+
+<div class="cart-layout">
+    <div>
+        <h2>Productos disponibles</h2>
+        <div class="product-grid">
+            {% for tipo in tipos %}
+                <div class="product-card" data-producto-id="{{ tipo.id_tipo_producto }}">
+                    <h3>{{ tipo.nombre }}</h3>
+                    <div class="venc-item"><strong>Ref:</strong> {{ tipo.vencimiento_refrigerado|default:"—" }}</div>
+                    <div class="venc-item"><strong>Cong:</strong> {{ tipo.vencimiento_congelado|default:"—" }}</div>
+                    <div class="venc-item"><strong>Bod:</strong> {{ tipo.vencimiento_bodega|default:"—" }}</div>
+                    <div class="venc-item"><strong>Top:</strong> {{ tipo.vencimiento_toppinera|default:"—" }}</div>
+                    {% if tipo.observaciones %}
+                        <div style="font-size:0.68rem; color:var(--text-secondary); font-style:italic; margin-top:4px;">{{ tipo.observaciones }}</div>
+                    {% endif %}
+                    <div class="add-date-form">
+                        <input type="date" class="fecha-input" placeholder="Fecha elaboración">
+                        <button class="btn-add-cart" data-nombre="{{ tipo.nombre }}">+ Agregar</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <h2>Lista para rótulos</h2>
+        <div id="cart-items">
+            <div class="cart-empty">Aún no agregaste productos.<br>Seleccioná uno de la lista.</div>
+        </div>
+        <div class="cart-total" id="cart-total" style="display:none;">
+            <p style="font-size:0.78rem; color:var(--text-secondary); margin-bottom:10px;">
+                <span id="cart-count">0</span> producto(s) seleccionado(s)
+            </p>
+            <button class="btn" id="btn-crear-rotulos" style="width:100%;">Crear Rótulos</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    const cartItems = {};
+    const cartContainer = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const cartCount = document.getElementById('cart-count');
+
+    function actualizarCarrito() {
+        const entries = Object.entries(cartItems);
+        if (entries.length === 0) {
+            cartContainer.innerHTML = '<div class="cart-empty">Aún no agregaste productos.<br>Seleccioná uno de la lista.</div>';
+            cartTotal.style.display = 'none';
+            return;
+        }
+        let html = '';
+        entries.forEach(([key, item]) => {
+            html += `
+                <div class="cart-item" data-key="${key}">
+                    <div class="cart-item-info">
+                        <div class="cart-product-name">${item.nombre}</div>
+                        <div class="cart-date">Elab: ${item.fecha || '—'}</div>
+                    </div>
+                    <button class="btn-remove" style="background:none;border:1px solid var(--danger);color:var(--danger);padding:2px 8px;font-size:0.7rem;cursor:pointer;">X</button>
+                </div>
+            `;
+        });
+        cartContainer.innerHTML = html;
+        cartTotal.style.display = 'block';
+        cartCount.textContent = entries.length;
+        document.querySelectorAll('.btn-remove').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const key = this.closest('.cart-item').dataset.key;
+                delete cartItems[key];
+                actualizarCarrito();
+            });
+        });
+    }
+
+    function generarKey(nombre, fecha) {
+        return nombre + '__' + (fecha || 'sin-fecha');
+    }
+
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const card = this.closest('.product-card');
+            const nombre = this.dataset.nombre;
+            const fechaInput = card.querySelector('.fecha-input');
+            const fecha = fechaInput ? fechaInput.value : '';
+            if (!fecha) {
+                alert('Por favor seleccioná una fecha de elaboración.');
+                return;
+            }
+            const key = generarKey(nombre, fecha);
+            if (cartItems[key]) {
+                alert('Este producto con esa fecha ya está en la lista.');
+                return;
+            }
+            cartItems[key] = { nombre, fecha };
+            actualizarCarrito();
+            fechaInput.value = '';
+        });
+    });
+
+    document.getElementById('btn-crear-rotulos').addEventListener('click', function() {
+        const entries = Object.entries(cartItems);
+        if (entries.length === 0) {
+            alert('Agregá al menos un producto a la lista.');
+            return;
+        }
+        alert('¡Rótulos generados! (Funcionalidad en desarrollo — próximamente podrás imprimirlos)');
+    });
+})();
+</script>
+{% endblock %}
