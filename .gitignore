@@ -1,0 +1,8 @@
+Computadora99
+Computadora99.pub
+*.pyc
+__pycache__/
+*.sqlite3
+node_modules/
+dist/
+.env
