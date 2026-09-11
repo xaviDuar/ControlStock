@@ -47,3 +47,4 @@ Auth: `rest_framework` with Session + Token authentication. Frontend uses token-
 - Locale set to `es-ar` (Spanish Argentina)
 - Frontend runs on port 5173, Django on 8000 — both must be running for full dev体验
 - `inspect_venc.py` is a standalone utility script, not part of the Django app
+- `inspect_venc.py` is a standalone utility script, not part of the Django app
