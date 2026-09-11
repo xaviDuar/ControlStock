@@ -4,6 +4,8 @@
 
 ¿Cuándo Vence? — Sistema de Control de Vencimientos de productos perecederos para una cafetería. Django 6.0.5 + SQLite3 backend, React 19 + Vite frontend.
 
+> Ver [`OVERVIEW.md`](./OVERVIEW.md) para la descripción del objetivo del proyecto.
+
 ## Dev commands
 
 ```bash
@@ -44,4 +46,5 @@ Auth: `rest_framework` with Session + Token authentication. Frontend uses token-
 - Default user: `admin` / `admin123`
 - Locale set to `es-ar` (Spanish Argentina)
 - Frontend runs on port 5173, Django on 8000 — both must be running for full dev体验
+- `inspect_venc.py` is a standalone utility script, not part of the Django app
 - `inspect_venc.py` is a standalone utility script, not part of the Django app
