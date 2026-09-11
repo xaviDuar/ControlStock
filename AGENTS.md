@@ -45,6 +45,5 @@ Auth: `rest_framework` with Session + Token authentication. Frontend uses token-
 - `CORS_ALLOW_ALL_ORIGINS = True` in settings (dev only)
 - Default user: `admin` / `admin123`
 - Locale set to `es-ar` (Spanish Argentina)
-- Frontend runs on port 5173, Django on 8000 — both must be running for full dev体验
-- `inspect_venc.py` is a standalone utility script, not part of the Django app
+- Frontend runs on port 5173, Django on 8000 — both must be running for full dev experience
 - `inspect_venc.py` is a standalone utility script, not part of the Django app
