@@ -5,30 +5,39 @@
 ¿Cuándo Vence? — Sistema de Control de Vencimientos de productos perecederos para una cafetería. Django 6.0.5 + SQLite3 backend, React 19 + Vite frontend.
 
 > Ver [`OVERVIEW.md`](./OVERVIEW.md) para la descripción del objetivo del proyecto.
+> Documentación por lado: [`src/backend/README.md`](./src/backend/README.md) y [`src/frontend/README.md`](./src/frontend/README.md).
 
 ## Dev commands
 
 ```bash
-# Backend (Django)
+# Uso diario (producción): Django sirve el build de Vite — UN solo comando
+cd src/frontend && npm run build    # compilar el frontend (solo si cambió)
+cd src/backend
+python manage.py runserver          # http://127.0.0.1:8000 (sirve app + API)
+
+# Desarrollo con HMR (Vite + Django por separado)
+# Terminal 1 (Django):
+cd src/backend
+python manage.py runserver          # http://127.0.0.1:8000 (solo API)
+# Terminal 2 (Vite):
+cd src/frontend && npm install
+npm run dev                        # http://localhost:5173 (proxies /api → Django)
+
+# Backend
 pip install django djangorestframework django-cors-headers
-python manage.py runserver          # http://127.0.0.1:8000
 python manage.py makemigrations
 python manage.py migrate
-
-# Frontend (React + Vite)
-cd frontend && npm install
-npm run dev                        # http://localhost:5173 (proxies /api → Django)
-npm run lint
-npm run build
 ```
 
 ## Architecture
 
-- `controlStock/` — Django project config (settings, root urls)
-- `core/` — login/logout views, home template
-- `Inventory/` — main app: models (TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio), views (inventario, rotulos), REST API (DRF viewsets at `/api/`)
-- `frontend/` — React SPA (Vite, React Router), talks to Django via `/api/` proxy
-- `vencimientos.db` — SQLite database with real production data
+- `src/backend/` — Django backend (sirve `/api/`, `/admin/` y el build de Vite en `/`)
+- `src/backend/controlStock/` — Django project config (settings, root urls)
+- `src/backend/Inventory/` — main app: models (TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio), REST API (DRF viewsets at `/api/`)
+- `src/frontend/` — React SPA (Vite, React Router), única fuente de HTML; talks to Django via `/api/` proxy (dev) o es servido por Django (build)
+- `src/backend/vencimientos.db` — SQLite database with real production data
+
+El frontend React/Vite renderiza todo el HTML. En producción (uso diario), `npm run build` genera `src/frontend/dist/` y Django lo sirve en `/` (templates DIRS + static). Django no renderiza templates propios.
 
 ## API
 
