@@ -1,5 +1,7 @@
 # Backend — Django
 
+> Arquitectura general del sistema: [`docs/architecture/ARCHITECTURE.MD`](../../docs/architecture/ARCHITECTURE.MD).
+
 Backend de **¿Cuándo Vence?**: Django 6.0.5 + Django REST Framework + SQLite3. Sirve la API en `/api/`, el admin en `/admin/` **y el build de producción del frontend** (React/Vite) en `/`.
 
 ## Uso diario (un solo comando)
@@ -24,10 +26,14 @@ backend/
 │   ├── serializers.py
 │   ├── admin.py
 │   └── migrations/        # Migraciones de base de datos
-├── vencimientos.db        # Base de datos SQLite con datos reales
-├── manage.py              # CLI de Django
-├── inspect_venc.py        # Script utilitario (no parte del app)
-└── migrar_vencimientos.py # Script de migración legacy (un solo uso)
+├── db/                    # Archivos de base de datos
+│   ├── vencimientos.db        # SQLite con datos reales
+│   ├── vencimientos.sqbpro    # Proyecto DB Browser
+│   └── vencimientos_backup_2026-06-24.db  # Backup
+├── tools/                 # Scripts utilitarios (no parte del app)
+│   ├── inspect_venc.py        # Inspección/lectura de la DB
+│   └── migrar_vencimientos.py # Migración legacy (un solo uso)
+└── manage.py              # CLI de Django
 ```
 
 ## Modelos de datos
@@ -103,7 +109,7 @@ Todas las rutas requieren autenticación (token) salvo `/api/auth/login/`.
 | GET | `/api/desperdicios/` | Desperdicio list |
 | GET | `/api/metricas/` | Rendimiento / desperdicio / ganancia por producto |
 
-Auth: `rest_framework` con Session + Basic + Token. El frontend usa token-based auth.
+Auth: `rest_framework` con Token (+ Basic) únicamente — SessionAuthentication está excluido a propósito (la SPA en el mismo origen mandaría la cookie de sesión y DRF exigiría CSRF). El frontend usa token-based auth.
 
 ## Comandos
 
@@ -121,8 +127,8 @@ En desarrollo se corre Vite aparte (http://localhost:5173) que proxea `/api` a e
 
 ## Gotchas
 
-- `vencimientos.db` tiene datos reales — no borrarla/resetear casualmente.
+- `db/vencimientos.db` tiene datos reales — no borrarla/resetear casualmente.
 - `CORS_ALLOW_ALL_ORIGINS = True` en settings (dev only).
 - Default user: `admin` / `admin123`.
 - Locale `es-ar`.
-- `migrar_vencimientos.py` borra `condiciones_vencimiento` si se re-ejecuta — es de un solo uso (migración real de 2026-06-24 ya hecha; backup: `vencimientos_backup_2026-06-24.db`).
+- `tools/migrar_vencimientos.py` borra `condiciones_vencimiento` si se re-ejecuta — es de un solo uso (migración real de 2026-06-24 ya hecha; backup: `db/vencimientos_backup_2026-06-24.db`).

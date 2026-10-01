@@ -1,5 +1,7 @@
 # Frontend — React + Vite
 
+> Arquitectura general del sistema: [`docs/architecture/ARCHITECTURE.MD`](../../docs/architecture/ARCHITECTURE.MD).
+
 Frontend de **¿Cuándo Vence?**: SPA con React 19 + Vite + React Router. Es la única fuente de HTML; consume la API REST de Django (`src/backend`) a través del proxy `/api`.
 
 ## Estructura

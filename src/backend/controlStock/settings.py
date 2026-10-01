@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'controlStock.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'vencimientos.db',
+        'NAME': BASE_DIR / 'db' / 'vencimientos.db',
     }
 }
 
@@ -130,8 +130,10 @@ LOGIN_URL = '/'
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
+    # Solo Token (+ Basic): la SPA usa token auth. SessionAuthentication se
+    # excluye a propósito: con frontend y backend en el mismo origen, el
+    # browser manda la cookie de sesión y DRF exigiría CSRF en /api/.
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],

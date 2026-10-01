@@ -30,7 +30,8 @@ proyectoStock/
 │   ├── backend/             # Backend Django — sirve app + API — ver src/backend/README.md
 │   │   ├── controlStock/    # Configuración principal de Django
 │   │   ├── Inventory/       # App de inventario (modelos + API REST)
-│   │   ├── vencimientos.db  # Base de datos SQLite con datos reales
+│   │   ├── db/              # Base de datos SQLite con datos reales
+│   │   ├── tools/           # Scripts utilitarios
 │   │   └── manage.py        # CLI de Django
 │   └── frontend/            # Frontend React (Vite) — única fuente de HTML — ver src/frontend/README.md
 │       ├── src/             # App.jsx, pages/, components/, context/, api/
@@ -43,6 +44,7 @@ proyectoStock/
 
 ## Documentación por lado
 
+- [**Arquitectura**](./docs/architecture/ARCHITECTURE.MD) — descripción del sistema: topología, capas, flujos, auth y decisiones.
 - [**Backend**](./src/backend/README.md) — modelos de datos, API REST, comandos Django, gotchas.
 - [**Frontend**](./src/frontend/README.md) — rutas, estructura de componentes, conexión con la API, comandos Vite.
 

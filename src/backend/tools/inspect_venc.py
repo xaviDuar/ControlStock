@@ -1,5 +1,6 @@
 import sqlite3
-conn = sqlite3.connect(r'C:\Users\Usuario\Documents\proyectoStock\vencimientos.db')
+from pathlib import Path
+conn = sqlite3.connect(Path(__file__).resolve().parent.parent / 'db' / 'vencimientos.db')
 cur = conn.cursor()
 
 print('=== Valores distintos por columna de vencimiento ===')
