@@ -1,61 +1,58 @@
 # Consulta de productos
 
-Funcionalidad que **permite ver los lotes de producto con sus fechas, cantidades, costos y proveedores** en **¿Cuándo Vence?**. Es la decimocuarta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite ver el catálogo de productos que vende la franquicia, con sus reglas de vencimiento según el estado de conservación** en **¿Cuándo Vence?**. Es la séptima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/consultaproductosCDS.md`](../requerimientos/consultaproductosCDS.md)
+> Casos de uso: [`docs/requerimientos/implementados/consultaproductosCDS.md`](../requerimientos/implementados/consultaproductosCDS.md)
 
 ---
 
 ## Qué hace
 
-- Expone la **consulta de lotes de producto** a través de la API `GET /api/productos/`.
-- Cada producto incluye: tipo de producto (`nombre`), condición de vencimiento anidada, `fecha_elaboracion`, `fecha_vencimiento`, `cantidad`, `costo_unitario` y `proveedor`.
-- Permite **buscar** por nombre de tipo de producto o por proveedor (parámetro `?search=`, SearchFilter de DRF).
-- Requiere autenticación por token (`IsAuthenticated`).
-- **Nota:** en la versión actual no existe una pantalla frontend dedicada; la consulta se realiza vía la API (o el panel de admin de Django).
+- Muestra la pantalla **Productos** (`/productos`) con la lista de tipos de producto.
+- Por cada producto muestra una fila con columnas: **Producto**, **Refrigerado**, **Congelado**, **Bodega**, **Toppinera** y **Obs.** (observaciones).
+- Los datos vienen de la API `GET /api/tipos/` (con autenticación por token).
+- Complementa con la **Búsqueda de productos** (filtrar por nombre) y el contador de resultados.
 
 ## Experiencia de usuario
 
-1. Un cliente autenticado consulta `GET /api/productos/` con `Authorization: Token <token>`.
-2. Recibe la lista de lotes con sus fechas, cantidades, costos y proveedores.
-3. Puede filtrar con `?search=<texto>` por nombre de tipo o proveedor.
-4. La gestión de los datos (crear/editar/borrar) se hace desde el panel admin (ver **Gestión de datos (admin)**).
+1. Con sesión iniciada, el usuario entra a `/productos` (desde el Navbar o los atajos de la portada).
+2. Ve el título **Productos**, la barra de búsqueda y la lista de productos en formato de tabla (una fila por producto).
+3. Si la API está cargando, ve "Cargando..."; si falla, ve una caja roja con el error.
+4. Al final de la lista se indica cuántos productos hay.
+5. Puede filtrar escribiendo en el buscador o pulsar **Limpiar** para ver todo.
 
 ## Cómo lo hace (implementación)
+
+### Frontend (React + Vite)
+
+| Parte | Archivo | Rol |
+|---|---|---|
+| Página | `src/frontend/src/pages/InventoryPage.jsx` | Estado (`tipos`, `query`, `loading`, `error`), `useEffect` que llama a `fetchTipos(query)`, render de la tabla |
+| Cliente API | `src/frontend/src/api/client.js` | `fetchTipos(query)` → `GET /api/tipos/?search=<q>`; agrega `Authorization: Token` |
+| Celda de dato | `src/frontend/src/components/DataCell.jsx` | Muestra cada valor de vencimiento (o placeholder) |
+| Ruta protegida | `src/frontend/src/App.jsx` | `/inventario` envuelta en `ProtectedRoute` |
 
 ### Backend (Django + DRF)
 
 | Parte | Archivo | Rol |
 |---|---|---|
-| Viewset | `src/backend/Inventory/api.py` | `ProductoViewSet` (ReadOnly): `select_related('id_tipo_producto', 'id_condicion')`, `SearchFilter` sobre `id_tipo_producto__nombre` y `proveedor`, `IsAuthenticated` |
-| Serializer | `src/backend/Inventory/serializers.py` | `ProductoSerializer`: campos `__all__` + `nombre` (fuente `id_tipo_producto.nombre`) + `condicion` (CondicionVencimiento anidada) |
-| Modelo | `src/backend/Inventory/models.py` | `Producto`: `id_tipo_producto`, `id_condicion`, `fecha_elaboracion`, `fecha_vencimiento`, `cantidad`, `costo_unitario`, `proveedor` |
-| Rutas | `src/backend/controlStock/urls.py` | router registra `productos` → `/api/productos/` |
-
-### Payload de ejemplo (por ítem)
-
-```
-{
-  "id_producto": 1,
-  "id_tipo_producto": 3,
-  "nombre": "Crema pastelera",
-  "id_condicion": 7,
-  "condicion": { "id_condicion": 7, "metodo": "congelado", "anotacion": "bolsa cerrada",
-                 "duracion_valor": 6, "duracion_unidad": "MESES", "especial": null },
-  "fecha_elaboracion": "2026-09-01",
-  "fecha_vencimiento": "2027-03-01",
-  "cantidad": 12.0,
-  "costo_unitario": "150.00",
-  "proveedor": "Distribuidora X"
-}
-```
+| Viewset | `src/backend/Inventory/api.py` | `TipoProductoViewSet` (ReadOnly): `queryset` con `prefetch_related('condicionvencimiento_set')`, `SearchFilter` sobre `nombre`, `IsAuthenticated` |
+| Serializer | `src/backend/Inventory/serializers.py` | `TipoProductoSerializer`: `id_tipo_producto`, `nombre`, los 4 vencimientos legacy, `observaciones` y `condiciones` (anidadas) |
+| Modelo | `src/backend/Inventory/models.py` | `TipoProducto`: `nombre` (unique), `vencimiento_refrigerado/congelado/bodega/toppinera` (legacy), `observaciones` |
+| Rutas | `src/backend/controlStock/urls.py` | router registra `tipos` → `/api/tipos/` |
 
 ### Flujo paso a paso
 
-1. El cliente llama a `GET /api/productos/?search=<q>` (con token).
-2. `ProductoViewSet` aplica el `SearchFilter` si viene `search`.
-3. Devuelve la lista serializada (JSON) con las relaciones resueltas (`select_related`).
-4. El consumidor de la API recibe los lotes con fechas, cantidades, costos y proveedores.
+1. El usuario abre `/productos` con sesión.
+2. `InventoryPage` monta el `useEffect` dependiente de `query`: `setLoading(true)`, `setError('')`, `fetchTipos(query)`.
+3. `fetchTipos` construye `GET /api/tipos/?search=<query>` (o sin `search` si la query está vacía).
+4. `client.js` inyecta `Authorization: Token <token>`.
+5. El backend (`TipoProductoViewSet`) filtra por nombre si viene `search` y responde la lista JSON.
+6. La página muestra `"Cargando..."` mientras `loading`, la tabla si hay datos, el contador de productos, o la caja de error si falla.
+
+### Nota sobre los datos
+
+- Los campos `vencimiento_refrigerado/congelado/bodega/toppinera` son **legacy** (solo referencia/exportación). La fuente de verdad de las reglas de vencimiento está en `CondicionVencimiento` (accesible vía `condiciones`), que es lo que define el vencimiento según el estado de conservación.
 
 ---
 
@@ -63,19 +60,20 @@ Funcionalidad que **permite ver los lotes de producto con sus fechas, cantidades
 
 | Situación | Comportamiento |
 |---|---|
-| Sin token | HTTP 401 |
-| Búsqueda por nombre o proveedor | Filtra vía `?search=` |
-| Sin `search` | Devuelve todos los productos |
-| Producto sin condición | `condicion` nula, `fecha_vencimiento` posiblemente nula |
-| Carga masiva | Lista completa (sin paginación) |
+| Carga exitosa | Tabla de productos + contador |
+| Sin resultados para la búsqueda | Tarjeta "No se encontraron productos..." con botón **Ver todos** |
+| API con error / 401 / red caída | Caja roja con el mensaje del error |
+| Cargando | Texto "Cargando..." |
+| Búsqueda activa con resultados | Tabla filtrada (filtro cliente sobre `nombre`) |
 
 ---
 
 ## Limitaciones conocidas
 
-- No hay pantalla frontend para esta consulta (solo API + admin).
-- No hay paginación.
-- Endpoint de solo lectura (la gestión es por admin).
+- El filtro se aplica también en el cliente (`tipos.filter`) además del `search` del backend.
+- Sin paginación: la lista se renderiza completa.
+- No hay acciones de alta/edición desde esta pantalla (solo lectura; eso es de la gestión admin).
+- La ruta y el nombre del componente están invertidos respecto a la semántica correcta (hoy `/inventario` muestra el catálogo); se alinearán en un cambio de código posterior.
 
 ---
 

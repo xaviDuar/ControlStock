@@ -1,6 +1,6 @@
 # Búsqueda de productos
 
-Funcionalidad que **permite filtrar el inventario por nombre y limpiar el filtro para ver todo de nuevo** en **¿Cuándo Vence?**. Es la octava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite filtrar el catálogo de productos por nombre y limpiar el filtro para ver todo de nuevo** en **¿Cuándo Vence?**. Es la octava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
 > Casos de uso: [`docs/requerimientos/implementados/busquedaproductosCDS.md`](../requerimientos/implementados/busquedaproductosCDS.md)
 
@@ -8,14 +8,14 @@ Funcionalidad que **permite filtrar el inventario por nombre y limpiar el filtro
 
 ## Qué hace
 
-- Permite escribir en una barra de búsqueda (dentro de **Inventario**) y filtrar los tipos de producto por nombre.
+- Permite escribir en una barra de búsqueda (dentro de **Productos**) y filtrar los productos del catálogo por nombre.
 - El filtro se aplica en tiempo real mientras se escribe.
 - Si no hay coincidencias, muestra un aviso con un botón **Ver todos**.
 - El botón **Limpiar** vacía la búsqueda y vuelve a mostrar la lista completa.
 
 ## Experiencia de usuario
 
-1. En `/inventario`, el usuario ve la barra de búsqueda: placeholder *"Buscar por nombre de producto..."*.
+1. En `/productos`, el usuario ve la barra de búsqueda: placeholder *"Buscar por nombre de producto..."*.
 2. Escribe un texto (p. ej. "crema"): la lista se filtra al instante mostrando solo los tipos cuyo nombre contiene el texto (sin distinguir mayúsculas).
 3. Si no hay coincidencias, ve la tarjeta *"No se encontraron productos para 'crema'"* con el botón **Ver todos**.
 4. Pulsa **Limpiar** (o **Ver todos**): el buscador se vacía y se muestra toda la lista de nuevo.
@@ -61,6 +61,7 @@ Funcionalidad que **permite filtrar el inventario por nombre y limpiar el filtro
 
 - La búsqueda no es de "tipeo debounce": cada tecla dispara un request al backend.
 - No hay búsqueda por otros campos (proveedor, observaciones) en esta pantalla.
+- La pantalla del catálogo está hoy en `/inventario` (componente `InventoryPage.jsx`); se alineará a `/productos` en un cambio de código posterior.
 
 ---
 

@@ -26,3 +26,8 @@ export function fetchTipos(query = '') {
   const q = query ? `?search=${encodeURIComponent(query)}` : '';
   return api(`/tipos/${q}`);
 }
+
+export function fetchProductos(query = '') {
+  const q = query ? `?search=${encodeURIComponent(query)}` : '';
+  return api(`/productos/${q}`);
+}
