@@ -20,8 +20,7 @@ Listado general de las funcionalidades implementadas en **¿Cuándo Vence?**, co
 
 ## Inventario
 
-- [**Consulta de inventario**](./consultainventario.md) — Permite ver la lista completa de los tipos de producto con sus ubicaciones y observaciones. ([Casos de uso](../requerimientos/implementados/consultainventarioCDS.md))
-- [**Búsqueda de productos**](./busquedaproductos.md) — Permite filtrar el inventario por nombre y limpiar el filtro para ver todo de nuevo. ([Casos de uso](../requerimientos/implementados/busquedaproductosCDS.md))
+- [**Consulta de inventario**](./consultainventario.md) — Permite ver los lotes de producto que están en el local, con su condición y fecha de vencimiento. ([Casos de uso](../requerimientos/implementados/consultainventarioCDS.md))
 
 ## Vencimientos y rótulos
 
@@ -36,7 +35,8 @@ Listado general de las funcionalidades implementadas en **¿Cuándo Vence?**, co
 
 ## Productos, ventas y desperdicios
 
-- [**Consulta de productos**](./consultaproductos.md) — Permite ver los lotes de producto con sus fechas, cantidades, costos y proveedores. ([Casos de uso](../requerimientos/consultaproductosCDS.md))
+- [**Consulta de productos**](./consultaproductos.md) — Permite ver el catálogo de productos de la franquicia con sus reglas de vencimiento por estado. ([Casos de uso](../requerimientos/implementados/consultaproductosCDS.md))
+- [**Búsqueda de productos**](./busquedaproductos.md) — Permite filtrar el catálogo de productos por nombre y limpiar el filtro para ver todo de nuevo. ([Casos de uso](../requerimientos/implementados/busquedaproductosCDS.md))
 - [**Consulta de ventas**](./consultaventas.md) — Permite ver el registro de ventas realizadas. ([Casos de uso](../requerimientos/consultaventasCDS.md))
 - [**Consulta de desperdicios**](./consultadesperdicios.md) — Permite ver el registro de productos desechados y sus motivos. ([Casos de uso](../requerimientos/consultadesperdiciosCDS.md))
 - [**Gestión de datos (admin)**](./administrador.md) — Permite crear, editar y borrar productos, ventas, desperdicios, tipos y condiciones desde el panel de administración de Django. ([Casos de uso](../requerimientos/implementados/administradorCDS.md))

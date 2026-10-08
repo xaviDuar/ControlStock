@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
 import RotulosPage from './pages/RotulosPage';
+import ProductosPage from './pages/ProductosPage';
 
 export default function App() {
   return (
@@ -20,6 +21,9 @@ export default function App() {
             } />
             <Route path="/rotulos" element={
               <ProtectedRoute><RotulosPage /></ProtectedRoute>
+            } />
+            <Route path="/productos" element={
+              <ProtectedRoute><ProductosPage /></ProtectedRoute>
             } />
           </Routes>
         </main>

@@ -14,6 +14,7 @@ Requerimientos de la funcionalidad **Generador de rótulos** de **¿Cuándo Venc
 | UC-02 | Agregar producto al carrito | Usuario autenticado | Pulsa **+ Agregar** con fecha y sin duplicado | El ítem aparece en la Lista para rótulos |
 | UC-03 | Agregar sin fecha de elaboración | Usuario autenticado | Pulsa **+ Agregar** sin fecha | Se muestra alert pidiendo la fecha; nada se agrega |
 | UC-04 | Agregar producto duplicado | Usuario autenticado | Pulsa **+ Agregar** con un par producto+fecha ya existente | Se muestra alert de duplicado; nada se agrega |
+| UC-05 | Agregar un rótulo nuevo (producto no cargado) | Usuario autenticado | Pulsa el botón **+** del buscador | Se abre una ventana para cargar nombre, fecha de elaboración, cantidad y vencimiento a mano; el rótulo se agrega al carrito |
 
 ---
 
@@ -133,6 +134,34 @@ Requerimientos de la funcionalidad **Generador de rótulos** de **¿Cuándo Venc
 
 **FE-1 — Agregar el mismo producto con otra fecha**
 - 1a. Como la clave incluye la fecha, el mismo producto con otra fecha **sí** se agrega (son ítems distintos).
+
+---
+
+## UC-05 — Agregar un rótulo nuevo (producto no cargado)
+
+**Actor principal:** Usuario autenticado.
+**Actor secundario:** Sistema (SPA React).
+**Objetivo:** Generar un rótulo para un producto que todavía no está cargado o que es una excepción, sin guardarlo en el sistema.
+**Disparador:** El usuario pulsa el botón **+** (arriba a la derecha del buscador).
+
+### Precondiciones
+
+1. El usuario está en `/rotulos` con sesión.
+
+### Flujo principal (éxito)
+
+1. El usuario pulsa el botón **+**.
+2. Se abre una ventana emergente con los campos: **Nombre del producto**, **Fecha de elaboración**, **Cantidad** y **Fecha de vencimiento** (a mano).
+3. El usuario completa los datos y confirma.
+4. El sistema agrega el rótulo a la **Lista para rótulos** (carrito) con los datos cargados.
+5. El caso de uso termina con éxito.
+
+**Postcondiciones (éxito):** el rótulo queda en el carrito listo para generar; no se guarda en el sistema.
+
+### Flujos alternativos
+
+**FE-1 — Datos incompletos** *(en el paso 3)*
+- 3a. Si falta algún dato obligatorio, el sistema pide completarlo y no agrega nada.
 
 ---
 

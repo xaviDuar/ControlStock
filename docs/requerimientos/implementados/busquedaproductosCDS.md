@@ -20,13 +20,13 @@ Requerimientos de la funcionalidad **Búsqueda de productos** de **¿Cuándo Ven
 
 **Actor principal:** Usuario autenticado.
 **Actor secundario:** Sistema (SPA React + API Django/DRF).
-**Objetivo:** Filtrar el inventario por nombre de producto.
-**Disparador:** El usuario escribe un texto en la barra de búsqueda de `/inventario`.
+**Objetivo:** Filtrar el catálogo de productos por nombre.
+**Disparador:** El usuario escribe un texto en la barra de búsqueda de `/productos`.
 
 ### Precondiciones
 
-1. El usuario está en `/inventario` con sesión.
-2. Existen tipos de producto cargados.
+1. El usuario está en `/productos` con sesión.
+2. Existen productos cargados.
 
 ### Flujo principal (éxito)
 
@@ -37,7 +37,7 @@ Requerimientos de la funcionalidad **Búsqueda de productos** de **¿Cuándo Ven
 5. La tabla muestra las filas coincidentes y el contador actualizado.
 6. El caso de uso termina con éxito.
 
-**Postcondiciones (éxito):** el usuario ve solo los tipos de producto que coinciden con la búsqueda.
+**Postcondiciones (éxito):** el usuario ve solo los productos que coinciden con la búsqueda.
 
 ### Flujos alternativos
 
@@ -51,12 +51,12 @@ Requerimientos de la funcionalidad **Búsqueda de productos** de **¿Cuándo Ven
 **Actor principal:** Usuario autenticado.
 **Actor secundario:** Sistema (SPA React).
 **Objetivo:** Informar al usuario cuando ningún producto coincide con la búsqueda.
-**Disparador:** El usuario escribe un texto que no coincide con ningún tipo de producto.
+**Disparador:** El usuario escribe un texto que no coincide con ningún producto.
 
 ### Precondiciones
 
 1. Existe `query` no vacío.
-2. Ningún tipo de producto coincide (ni en backend ni en el filtro cliente).
+2. Ningún producto coincide (ni en backend ni en el filtro cliente).
 
 ### Flujo principal (éxito)
 
@@ -77,7 +77,7 @@ Requerimientos de la funcionalidad **Búsqueda de productos** de **¿Cuándo Ven
 
 **Actor principal:** Usuario autenticado.
 **Actor secundario:** Sistema (SPA React).
-**Objetivo:** Restablecer la vista completa del inventario.
+**Objetivo:** Restablecer la vista completa del catálogo.
 **Disparador:** El usuario pulsa **Limpiar** (si hay texto) o **Ver todos** (en el aviso de sin resultados).
 
 ### Precondiciones
@@ -88,7 +88,7 @@ Requerimientos de la funcionalidad **Búsqueda de productos** de **¿Cuándo Ven
 
 1. El usuario pulsa **Limpiar** o **Ver todos**.
 2. El sistema ejecuta `setQuery('')`: el input queda vacío y se recarga `fetchTipos('')`.
-3. La API devuelve toda la lista de tipos de producto.
+3. La API devuelve toda la lista de productos.
 4. La tabla muestra el inventario completo con su contador.
 5. El caso de uso termina con éxito.
 

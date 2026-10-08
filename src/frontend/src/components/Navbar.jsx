@@ -14,6 +14,7 @@ export default function Navbar() {
             <>
               <li><Link to="/inventario">Inventario</Link></li>
               <li><Link to="/rotulos">Rótulos</Link></li>
+              <li><Link to="/productos">Productos</Link></li>
               <li><button onClick={logout}>Salir ({user.username})</button></li>
             </>
           ) : (

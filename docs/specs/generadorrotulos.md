@@ -8,10 +8,12 @@ Funcionalidad que **permite elegir productos y sus condiciones de conservación 
 
 ## Qué hace
 
-- Muestra la pantalla **Crear Rótulos** (`/rotulos`) con la grilla de **Productos disponibles**.
+- Muestra la pantalla **Crear Rótulos** (`/rotulos`) con la grilla de **Productos disponibles** (solo los tipos que tienen stock en el inventario).
+- Tiene una **barra de búsqueda** para filtrar los productos y, a su derecha, un botón **+** para agregar un rótulo nuevo.
 - Por cada tipo de producto, muestra sus métodos de conservación (**Refrigerado**, **Congelado**, **Bodega**, **Toppinera**) con un selector de condición de vencimiento.
 - Permite cargar una fecha de elaboración y ver al instante la fecha de vencimiento resultante (`→ vence …`).
 - Un botón **+ Agregar** suma el producto (con sus condiciones y fecha) a la **Lista para rótulos** (carrito).
+- El botón **+** abre una ventana para cargar un rótulo de un producto no cargado o excepción (nombre, fecha de elaboración, cantidad y vencimiento a mano); no se guarda, solo se genera y se agrega al carrito.
 - Desde el carrito se pueden quitar productos, ver el contador y (eventualmente) generar los rótulos.
 
 ## Experiencia de usuario
@@ -22,6 +24,7 @@ Funcionalidad que **permite elegir productos y sus condiciones de conservación 
 4. Si carga la fecha de elaboración, al lado del selector aparece `→ vence {fecha}` calculada al instante.
 5. Pulsa **+ Agregar**: si no hay fecha, ve un alert pidiéndola; si el producto con esa fecha ya está, ve otro alert; si todo está bien, el ítem aparece en la **Lista para rótulos**.
 6. En el carrito puede quitar ítems con la **X**, ver cuántos hay y pulsar **Crear Rótulos** (por ahora muestra un aviso de funcionalidad en desarrollo).
+7. Puede pulsar el botón **+** para abrir una ventana y cargar un rótulo de un producto no cargado o excepción (nombre, fecha de elaboración, cantidad y vencimiento a mano); al confirmar, se agrega al carrito.
 
 ## Cómo lo hace (implementación)
 
@@ -75,6 +78,9 @@ Funcionalidad que **permite elegir productos y sus condiciones de conservación 
 | Condición FIN_DEL_DIA | Preview muestra la misma fecha |
 | Carrito vacío | Mensaje "Aún no agregaste productos..." |
 | Generar rótulos | Alert de "funcionalidad en desarrollo" |
+| Pulsar botón **+** | Ventana emergente con nombre, fecha de elaboración, cantidad y vencimiento a mano |
+| Confirmar rótulo nuevo completo | Se agrega al carrito (no se guarda en el sistema) |
+| Confirmar rótulo nuevo incompleto | Se pide completar los datos; no se agrega nada |
 
 ---
 
