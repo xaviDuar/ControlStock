@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite ver el registro de productos desechados y sus motivos** en **¿Cuándo Vence?**. Es la decimosexta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/consultadesperdiciosCDS.md`](../requerimientos/consultadesperdiciosCDS.md)
-
 ---
 
 ## Qué hace

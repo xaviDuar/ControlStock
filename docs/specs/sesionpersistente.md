@@ -2,8 +2,6 @@
 
 Funcionalidad que **mantiene al usuario identificado aunque recargue la página** y **lo libera al salir** en **¿Cuándo Vence?**. Es la segunda funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/sesionpersistenteCDS.md`](../requerimientos/implementados/sesionpersistenteCDS.md)
-
 ---
 
 ## Qué hace

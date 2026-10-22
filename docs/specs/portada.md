@@ -2,8 +2,6 @@
 
 Funcionalidad que constituye la **pantalla de acceso con la identidad del sistema y el formulario de login** en **¿Cuándo Vence?**. Es la sexta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/homepageCDS.md`](../requerimientos/implementados/homepageCDS.md)
-
 ---
 
 ## Qué hace

@@ -2,8 +2,6 @@
 
 Funcionalidad que **calcula la fecha de vencimiento de un producto a partir de su condición** (horas, días, meses, años, fin del día o fecha de proveedor) en **¿Cuándo Vence?**. Es la decimotercera funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/calculovencimientoCDS.md`](../requerimientos/implementados/calculovencimientoCDS.md)
-
 ---
 
 ## Qué hace

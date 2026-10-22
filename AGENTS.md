@@ -7,7 +7,7 @@
 > Ver [`OVERVIEW.md`](./OVERVIEW.md) para la descripción del objetivo del proyecto.
 > Arquitectura del sistema: [`docs/architecture/ARCHITECTURE.MD`](./docs/architecture/ARCHITECTURE.MD).
 > Documentación por lado: [`src/backend/README.md`](./src/backend/README.md) y [`src/frontend/README.md`](./src/frontend/README.md).
-> Especificaciones funcionales: [`docs/specs/funcionalidades.md`](./docs/specs/funcionalidades.md) (índice) y `docs/requerimientos/` (casos de uso, `*CDS.md` — archivos temporales para poder implementar las funcionalidades).
+> Especificaciones funcionales: [`docs/specs/funcionalidades.md`](./docs/specs/funcionalidades.md) — índice de specs, lista cada funcionalidad con su spec propia en `docs/specs/`.
 
 ## Comandos de desarrollo
 
@@ -38,8 +38,7 @@ python manage.py migrate
 - `src/backend/Inventory/` — app principal: modelos (TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio), API REST (viewsets de DRF en `/api/`)
 - `src/frontend/` — React SPA (Vite, React Router), única fuente de HTML; se comunica con Django mediante el proxy `/api/` (dev) o es servido por Django (build)
 - `src/backend/db/vencimientos.db` — base de datos SQLite con datos reales de producción
-- `docs/specs/` — especificación funcional + técnica por funcionalidad (`*.md`)
-- `docs/requerimientos/` — casos de uso por funcionalidad (`*CDS.md`), archivos temporales para poder implementar las funcionalidades
+- `docs/specs/` — especificación funcional + técnica por funcionalidad (`*.md`); el índice es `docs/specs/funcionalidades.md`
 
 El frontend React/Vite renderiza todo el HTML. En producción (uso diario), `npm run build` genera `src/frontend/dist/` y Django lo sirve en `/` (templates DIRS + static). Django no renderiza templates propios.
 

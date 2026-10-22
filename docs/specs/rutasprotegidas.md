@@ -2,8 +2,6 @@
 
 Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado sesión, redirigiendo a la portada** en **¿Cuándo Vence?**. Es la cuarta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/rutasprotegidasCDS.md`](../requerimientos/implementados/rutasprotegidasCDS.md)
-
 ---
 
 ## Qué hace

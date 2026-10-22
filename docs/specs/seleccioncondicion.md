@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite elegir, para cada método de conservación, la condición de vencimiento aplicable** (ej. bolsa cerrada o abierta) en **¿Cuándo Vence?**. Es la décima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/seleccioncondicionCDS.md`](../requerimientos/implementados/seleccioncondicionCDS.md)
-
 ---
 
 ## Qué hace

@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite desplazarse entre las secciones disponibles según el estado de la sesión** en **¿Cuándo Vence?**. Es la quinta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/navbarCDS.md`](../requerimientos/implementados/navbarCDS.md)
-
 ---
 
 ## Qué hace

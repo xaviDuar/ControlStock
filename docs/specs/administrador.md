@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite crear, editar y borrar productos, ventas, desperdicios, tipos y condiciones desde el panel de administración de Django** en **¿Cuándo Vence?**. Es la decimoséptima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/administradorCDS.md`](../requerimientos/implementados/administradorCDS.md)
-
 ---
 
 ## Qué hace

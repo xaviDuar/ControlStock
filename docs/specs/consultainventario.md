@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite ver los lotes de producto que están en el local, con su condición y su fecha de vencimiento calculada** en **¿Cuándo Vence?**. Es la decimocuarta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/consultainventarioCDS.md`](../requerimientos/implementados/consultainventarioCDS.md)
-
 ---
 
 ## Qué hace
