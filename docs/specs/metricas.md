@@ -2,8 +2,6 @@
 
 Funcionalidad que **calcula por cada producto su rendimiento, ingresos, costos y ganancia en función de ventas y desperdicios** en **¿Cuándo Vence?**. Es la decimoctava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/metricasCDS.md`](../requerimientos/metricasCDS.md)
-
 ---
 
 ## Qué hace

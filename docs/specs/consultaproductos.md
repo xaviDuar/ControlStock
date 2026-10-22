@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite ver el catálogo de productos que vende la franquicia, con sus reglas de vencimiento según el estado de conservación** en **¿Cuándo Vence?**. Es la séptima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/consultaproductosCDS.md`](../requerimientos/implementados/consultaproductosCDS.md)
-
 ---
 
 ## Qué hace

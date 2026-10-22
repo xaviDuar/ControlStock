@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite filtrar el catálogo de productos por nombre y limpiar el filtro para ver todo de nuevo** en **¿Cuándo Vence?**. Es la octava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/busquedaproductosCDS.md`](../requerimientos/implementados/busquedaproductosCDS.md)
-
 ---
 
 ## Qué hace

@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite acumular los rótulos seleccionados, revisarlos y quitar los que ya no se necesiten** en **¿Cuándo Vence?**. Es la duodécima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/carritoCDS.md`](../requerimientos/carritoCDS.md)
-
 ---
 
 ## Qué hace

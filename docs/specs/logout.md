@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite cerrar la sesión y volver a la portada** en **¿Cuándo Vence?**. Es la tercera funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/logoutCDS.md`](../requerimientos/implementados/logoutCDS.md)
-
 ---
 
 ## Qué hace

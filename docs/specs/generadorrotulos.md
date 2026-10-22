@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite elegir productos y sus condiciones de conservación para preparar las etiquetas de vencimiento** en **¿Cuándo Vence?**. Es la novena funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/generadorrotulosCDS.md`](../requerimientos/generadorrotulosCDS.md)
-
 ---
 
 ## Qué hace

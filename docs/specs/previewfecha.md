@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite cargar la fecha de elaboración y ver al instante la fecha de vencimiento resultante** en **¿Cuándo Vence?**. Es la undécima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/previewfechaCDS.md`](../requerimientos/implementados/previewfechaCDS.md)
-
 ---
 
 ## Qué hace

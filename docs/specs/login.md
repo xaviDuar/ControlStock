@@ -2,8 +2,6 @@
 
 Funcionalidad de **autenticación de usuario**: permite iniciar sesión con usuario y contraseña para acceder a las secciones protegidas de **¿Cuándo Vence?**. Es la primera funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/implementados/loginCDS.md`](../requerimientos/implementados/loginCDS.md)
-
 ---
 
 ## Qué hace

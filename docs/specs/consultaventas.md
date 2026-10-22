@@ -2,8 +2,6 @@
 
 Funcionalidad que **permite ver el registro de ventas realizadas** en **¿Cuándo Vence?**. Es la decimoquinta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
-> Casos de uso: [`docs/requerimientos/consultaventasCDS.md`](../requerimientos/consultaventasCDS.md)
-
 ---
 
 ## Qué hace
