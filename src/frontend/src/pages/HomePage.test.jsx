@@ -1,6 +1,6 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import HomePage from './HomePage';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
@@ -13,11 +13,19 @@ vi.mock('../context/AuthContext', () => ({
   useAuth: vi.fn(),
 }));
 
+vi.mock('react-router-dom', async (importOriginal) => {
+  const mod = await importOriginal();
+  return { ...mod, useNavigate: vi.fn() };
+});
+
+const navigate = vi.fn();
+
 afterEach(cleanup);
 
 beforeEach(() => {
   vi.clearAllMocks();
   useAuth.mockReturnValue({ user: null, login: vi.fn(), loading: false });
+  useNavigate.mockReturnValue(navigate);
 });
 
 describe('REQ-LOGIN-01 identidad de portada', () => {
@@ -90,5 +98,39 @@ describe('REQ-LOGIN-03 caja de error de login', () => {
     const alerta = await screen.findByRole('alert');
     expect(alerta.textContent).toContain('Error de red');
     expect(alerta.textContent).toContain('Revisá tu conexión e intentá de nuevo.');
+  });
+});
+
+describe('casos de uso de login (regresión)', () => {
+  test('CA-1.3 UC-01.2 login válido guarda sesión y navega a /inventario', async () => {
+    const login = vi.fn();
+    useAuth.mockReturnValue({ user: null, login, loading: false });
+    loginUser.mockResolvedValue({ token: 't1', username: 'admin' });
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith('/inventario'));
+    expect(loginUser).toHaveBeenCalledWith('admin', 'secret123');
+    expect(login).toHaveBeenCalledWith('t1', { username: 'admin' });
+  });
+
+  test('CA-2.1/2.4 REQ-02 ambos campos son requeridos con sus placeholders', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    const usuario = screen.getByLabelText('Usuario');
+    const password = screen.getByLabelText('Contraseña');
+    expect(usuario.required).toBe(true);
+    expect(usuario.placeholder).toBe('Ingresá tu usuario');
+    expect(password.required).toBe(true);
+    expect(password.placeholder).toBe('Ingresá tu contraseña');
+  });
+
+  test('CA-1.4 UC-01.3 con sesión iniciada muestra atajos y no el formulario', () => {
+    useAuth.mockReturnValue({ user: { username: 'admin' }, login: vi.fn(), loading: false });
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    expect(screen.getByText('Ir al Inventario')).toBeTruthy();
+    expect(screen.getByText('Crear Rótulos')).toBeTruthy();
+    expect(screen.queryByLabelText('Usuario')).toBeNull();
   });
 });
