@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
+import logo from '../assets/logo.png';
 
 export default function HomePage() {
   const { user, login } = useAuth();
@@ -24,10 +25,12 @@ export default function HomePage() {
 
   return (
     <div className="hero">
-      <h1>¿CUÁNDO VENCE?</h1>
-      <p className="hero-sub">Control de vencimientos para productos perecederos</p>
+      <div className="hero-logo">
+        <img src={logo} alt="¿Cuándo Vence?" />
+      </div>
+      <h1>¿Cuándo Vence?</h1>
+      <p className="hero-sub">Control de vencimientos de productos perecederos</p>
       <div className="pixel-line"></div>
-      <p>Gestioná tu inventario, consultá fechas de expiración y generá rótulos de forma simple y organizada.</p>
 
       {user ? (
         <>
