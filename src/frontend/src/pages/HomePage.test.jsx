@@ -114,6 +114,7 @@ describe('casos de uso de login (regresión)', () => {
     await waitFor(() => expect(navigate).toHaveBeenCalledWith('/inventario'));
     expect(loginUser).toHaveBeenCalledWith('admin', 'secret123');
     expect(login).toHaveBeenCalledWith('t1', { username: 'admin' });
+    expect(screen.queryByRole('alert')).toBeNull();
   });
 
   test('CA-2.1/2.4 REQ-02 ambos campos son requeridos con sus placeholders', () => {

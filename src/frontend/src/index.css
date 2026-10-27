@@ -295,8 +295,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .login-form .error-box .error-hint {
-  color: #d45a5a;
-  opacity: 0.8;
+  color: #e08a8a;
   font-size: 0.75rem;
   margin: 4px 0 0;
 }

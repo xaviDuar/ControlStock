@@ -46,7 +46,7 @@ El único cambio funcional es la **línea de ayuda** y la **ubicación** de la c
 | RNF-3.1 | La caja de error conserva la estética actual de error (rojo: fondo `#2a1a1a`, borde y texto `#d45a5a`, fuente Courier New), acorde al mockup y al estilo pixel-art de la app. |
 | RNF-3.2 | El título (`ErrorText`) y el texto de ayuda (`ErrorHint`) se visualizan como dos líneas jerarquizadas: el título con más peso visual que la ayuda. |
 | RNF-3.3 | La aparición de la caja no desplaza el formulario de forma que tape el botón **Acceder** (el botón sigue visible y accesible). |
-| RNF-3.4 | La caja de error se implementa con `role="alert"` y `aria-live="polite"` para lectores de pantalla. |
+| RNF-3.4 | La caja de error se implementa con `role="alert"` para lectores de pantalla (el rol ya implica aria-live assertive; no se agrega `aria-live` explícito para no contradecirlo). |
 
 ## 6. Casos de uso
 

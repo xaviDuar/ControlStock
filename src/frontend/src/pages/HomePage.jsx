@@ -9,7 +9,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -56,7 +56,7 @@ export default function HomePage() {
               value={password} onChange={e => setPassword(e.target.value)} />
           </div>
           {error && (
-            <div className="error-box" role="alert" aria-live="polite">
+            <div className="error-box" role="alert">
               <p className="error-title">{error.title}</p>
               <p className="error-hint">{error.hint}</p>
             </div>

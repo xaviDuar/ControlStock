@@ -61,9 +61,18 @@ public static class LogoPrep {
         }
         Marshal.Copy(ob, 0, od.Scan0, ob.Length);
         outBmp.UnlockBits(od);
-        outBmp.Save(dst, ImageFormat.Png);
+        int tw = 192;
+        int th = (int)Math.Round(ch * (tw / (double)cw));
+        using (Bitmap small = new Bitmap(tw, th, PixelFormat.Format32bppArgb)) {
+          using (Graphics g = Graphics.FromImage(small)) {
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            g.DrawImage(outBmp, 0, 0, tw, th);
+          }
+          small.Save(dst, ImageFormat.Png);
+        }
       }
-      return cw + "x" + ch;
+      return cw + "x" + ch + " -> 192x" + (int)Math.Round(ch * (192.0 / cw));
     }
   }
 }

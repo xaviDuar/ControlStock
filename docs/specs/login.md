@@ -79,7 +79,7 @@ Orden de prioridad del error en `client.js`: `err.error` → `err.detail` → `"
 - Estética pixel-art oscura: fuente Courier New, fondo `#111118`, acento verde `#4aaa8a`, errores en rojo (`#d45a5a`).
 - Identidad: logo de taza pixel-art (`src/frontend/src/assets/logo.png`, generado por `tools/preparar_logo.ps1`), título **¿Cuándo Vence?** y tagline *Control de vencimientos de productos perecederos*.
 - Formulario: `login-form card` con ancho máximo de 360px, centrado; botón **Acceder** al 100% del ancho.
-- Caja de error: `div.error-box` (fondo `#2a1a1a`, borde y texto rojos) dentro del formulario, entre el campo **Contraseña** y el botón **Acceder**; dos líneas: título (`error-title`) y ayuda (`error-hint`). Lleva `role="alert"` y `aria-live="polite"`.
+- Caja de error: `div.error-box` (fondo `#2a1a1a`, borde rojo, título y ayuda en rojo) dentro del formulario, entre el campo **Contraseña** y el botón **Acceder**; dos líneas: título (`error-title`) y ayuda (`error-hint`, tinte `#e08a8a` para contraste WCAG). Lleva `role="alert"`.
 
 ---
 
