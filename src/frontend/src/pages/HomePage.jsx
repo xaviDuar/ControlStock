@@ -13,13 +13,19 @@ export default function HomePage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setError('');
+    setError(null);
     try {
       const data = await loginUser(username, password);
       login(data.token, { username: data.username });
       navigate('/inventario');
     } catch (err) {
-      setError(err.message);
+      const esRed = err.message === 'Error de red';
+      setError({
+        title: err.message,
+        hint: esRed
+          ? 'Revisá tu conexión e intentá de nuevo.'
+          : 'Revisá el usuario y la contraseña e intentá de nuevo.',
+      });
     }
   }
 
@@ -39,7 +45,6 @@ export default function HomePage() {
         </>
       ) : (
         <form onSubmit={handleSubmit} className="login-form card">
-          {error && <div className="message error">{error}</div>}
           <div className="form-group">
             <label htmlFor="username">Usuario</label>
             <input type="text" id="username" placeholder="Ingresá tu usuario" required
@@ -50,6 +55,12 @@ export default function HomePage() {
             <input type="password" id="password" placeholder="Ingresá tu contraseña" required
               value={password} onChange={e => setPassword(e.target.value)} />
           </div>
+          {error && (
+            <div className="error-box" role="alert" aria-live="polite">
+              <p className="error-title">{error.title}</p>
+              <p className="error-hint">{error.hint}</p>
+            </div>
+          )}
           <button type="submit" style={{ width: '100%' }}>Acceder</button>
         </form>
       )}

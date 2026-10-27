@@ -279,6 +279,28 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
 }
 
+.login-form .error-box {
+  background: #2a1a1a;
+  border: 2px solid #d45a5a;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.login-form .error-box .error-title {
+  color: #d45a5a;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-form .error-box .error-hint {
+  color: #d45a5a;
+  opacity: 0.8;
+  font-size: 0.75rem;
+  margin: 4px 0 0;
+}
+
 /* Product table */
 .product-list {
   display: flex;
