@@ -7,7 +7,7 @@ Funcionalidad que constituye la **pantalla de acceso con la identidad del sistem
 ## Qué hace
 
 - Es la ruta pública `/`, primera pantalla que ve el usuario (sin sesión).
-- Muestra la identidad del sistema: título **¿CUÁNDO VENCE?**, subtítulo *Control de vencimientos para productos perecederos*, línea pixel y descripción del sistema.
+- Muestra la identidad del sistema: logo de taza pixel-art, título **¿Cuándo Vence?**, tagline *Control de vencimientos de productos perecederos* y línea pixel.
 - **Sin sesión:** muestra el formulario de login (Usuario, Contraseña, botón **Acceder**).
 - **Con sesión:** reemplaza el formulario por dos atajos: **Ir al Inventario** y **Crear Rótulos**.
 
@@ -16,7 +16,7 @@ Funcionalidad que constituye la **pantalla de acceso con la identidad del sistem
 1. El usuario entra a `/` sin sesión: ve el hero con la identidad del sistema y el formulario de acceso.
 2. Completa usuario y contraseña y pulsa **Acceder**: si son válidas, navega a `/inventario`; si no, ve un mensaje de error.
 3. Si el usuario ya tiene sesión y visita `/`, no ve el formulario: ve los botones **Ir al Inventario** y **Crear Rótulos**.
-4. Si ocurre un fallo de red o credenciales inválidas, permanece en la portada con una caja de error.
+4. Si ocurre un fallo de red o credenciales inválidas, permanece en la portada con una caja de error dentro del formulario (título + texto de ayuda).
 
 ## Cómo lo hace (implementación)
 
@@ -33,16 +33,16 @@ Funcionalidad que constituye la **pantalla de acceso con la identidad del sistem
 ### Estructura de la página
 
 1. **Hero** (`div.hero`):
-   - `<h1>¿CUÁNDO VENCE?</h1>`
-   - `<p class="hero-sub">Control de vencimientos para productos perecederos</p>`
-   - `div.pixel-line` (línea verde pixel de 48px)
-   - Párrafo descriptivo.
+   - `div.hero-logo` → `<img src={logo} alt="¿Cuándo Vence?" />` (`src/frontend/src/assets/logo.png`).
+   - `<h1>¿Cuándo Vence?</h1>`
+   - `<p class="hero-sub">Control de vencimientos de productos perecederos</p>`
+   - `div.pixel-line` (línea verde pixel de 48px).
 2. **Según sesión** (`{user ? ... : ...}`):
    - Con sesión → botón **Ir al Inventario** (`navigate("/inventario")`) y **Crear Rótulos** (`navigate("/rotulos")`).
    - Sin sesión → `<form onSubmit={handleSubmit} className="login-form card">` con:
-     - Caja de error condicional (`div.message.error`).
      - Campo **Usuario** (`input type="text"`, `required`, placeholder "Ingresá tu usuario").
      - Campo **Contraseña** (`input type="password"`, `required`, placeholder "Ingresá tu contraseña").
+     - Caja de error condicional (`div.error-box`, entre Contraseña y el botón), con título (`error-title`) y ayuda (`error-hint`).
      - Botón submit **Acceder** (`width:100%`).
 
 ### Flujo del submit (sin sesión)
@@ -50,7 +50,7 @@ Funcionalidad que constituye la **pantalla de acceso con la identidad del sistem
 1. `handleSubmit` hace `preventDefault()` y limpia `error`.
 2. Llama a `loginUser(username, password)` → `POST /api/auth/login/`.
 3. Éxito: `login(data.token, {username})` (persiste sesión) y `navigate("/inventario")`.
-4. Error: `setError(err.message)` → se muestra la caja roja; el usuario permanece en la portada.
+4. Error: `setError({title, hint})` → se muestra la caja de error (título del error + texto de ayuda); el usuario permanece en la portada.
 
 ---
 
@@ -61,8 +61,8 @@ Funcionalidad que constituye la **pantalla de acceso con la identidad del sistem
 | Sin sesión → `/` | Hero + formulario de login |
 | Con sesión → `/` | Hero + atajos (Ir al Inventario, Crear Rótulos) |
 | Campos vacíos | El navegador bloquea el envío (`required`) |
-| Credenciales inválidas | Caja de error "Credenciales inválidas" en la portada |
-| Fallo de red | Caja de error "Error de red" en la portada |
+| Credenciales inválidas | Caja de error en el formulario: *"Credenciales inválidas"* + *"Revisá el usuario y la contraseña e intentá de nuevo."* |
+| Fallo de red | Caja de error en el formulario: *"Error de red"* + *"Revisá tu conexión e intentá de nuevo."* |
 | Sesión restaurada tras recarga | Portada muestra los atajos (no el formulario) |
 
 ---

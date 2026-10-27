@@ -8,18 +8,18 @@ Funcionalidad de **autenticación de usuario**: permite iniciar sesión con usua
 
 - Muestra un formulario de acceso en la portada (`/`) con dos campos: **Usuario** y **Contraseña**, y un botón **Acceder**.
 - Valida las credenciales contra el backend y, si son correctas, identifica al usuario en la aplicación: guarda su sesión, muestra el menú personalizado en el Navbar y lo redirige al Inventario.
-- Si las credenciales son incorrectas, muestra un mensaje de error sin perder lo escrito en el formulario.
+- Si las credenciales son incorrectas, muestra una caja de error con título y texto de ayuda, sin perder lo escrito en el formulario.
 - Si el usuario ya tiene sesión iniciada, el formulario se reemplaza por dos atajos: **Ir al Inventario** y **Crear Rótulos**.
 
 ## Experiencia de usuario
 
-1. El usuario entra a la portada (`/`): ve el hero con el título **¿CUÁNDO VENCE?** y, debajo, el formulario `login-form card`.
+1. El usuario entra a la portada (`/`): ve el hero con el logo de la aplicación, el título **¿Cuándo Vence?**, el tagline *Control de vencimientos de productos perecederos* y, debajo, el formulario `login-form card`.
 2. Completa los campos:
    - **Usuario** — placeholder *"Ingresá tu usuario"* (`input type="text"`, `required`).
    - **Contraseña** — placeholder *"Ingresá tu contraseña"* (`input type="password"`, `required`).
 3. Presiona **Acceder**:
    - **Si las credenciales son válidas:** navega a `/inventario` y el Navbar pasa a mostrar *Inventario*, *Rótulos* y el botón **Salir (usuario)**.
-   - **Si no lo son:** aparece una caja roja de error con el mensaje *"Credenciales inválidas"* y el usuario permanece en la portada.
+   - **Si no lo son:** aparece, dentro del formulario entre el campo **Contraseña** y el botón **Acceder**, una caja roja de error con el título *"Credenciales inválidas"* y el texto de ayuda *"Revisá el usuario y la contraseña e intentá de nuevo."*; el usuario permanece en la portada.
 4. Si los campos están vacíos, el navegador bloquea el envío con su mensaje nativo (*"Por favor, rellena este campo."*) mediante el atributo `required` del HTML.
 
 No hay mensaje de éxito ni spinner de carga: en caso correcto la transición es directa al Inventario.
@@ -54,7 +54,7 @@ No hay mensaje de éxito ni spinner de carga: en caso correcto la transición es
 3. **Request:** `client.js` hace `POST /api/auth/login/` con body `{"username": "...", "password": "..."}` (sin header `Authorization`). En dev el proxy de Vite (`vite.config.js`) lo redirige a `http://127.0.0.1:8000`; en prod lo resuelve el mismo Django.
 4. **Respuesta del servidor:**
    - **200** con `{"token", "username"}` → el frontend llama a `login(token, {username})`, que actualiza el estado React y persiste `{"token", "user"}` en `localStorage["auth"]`.
-   - **400** con `{"error": "Credenciales inválidas"}` → `client.js` lanza un `Error` que `handleSubmit` muestra en la caja roja.
+   - **400** con `{"error": "Credenciales inválidas"}` → `client.js` lanza un `Error` que `handleSubmit` convierte en la caja de error (título *"Credenciales inválidas"* + ayuda *"Revisá el usuario y la contraseña e intentá de nuevo."*). Si el mensaje del error es *"Error de red"*, la ayuda es *"Revisá tu conexión e intentá de nuevo."*.
 5. **Redirección:** `navigate("/inventario")`; `ProtectedRoute` verifica `user` y deja pasar.
 6. **Requests autenticados:** a partir de ahí, `client.js` lee `localStorage["auth"]` y agrega `Authorization: Token <token>` a cada llamada a `/api/...`.
 
@@ -68,17 +68,18 @@ No hay mensaje de éxito ni spinner de carga: en caso correcto la transición es
 | Situación | Mensaje mostrado | Origen |
 |---|---|---|
 | Campos vacíos | Mensaje nativo del navegador (*"Por favor, rellena este campo."*) | Atributo `required` del HTML |
-| Credenciales incorrectas | `Credenciales inválidas` | `login_api` → HTTP 400 |
+| Credenciales incorrectas | Caja de error: *"Credenciales inválidas"* + ayuda *"Revisá el usuario y la contraseña e intentá de nuevo."* | `login_api` → HTTP 400 |
 | Sin token o token inválido en una API | `Las credenciales de autenticación no se proveyeron.` (u otro detalle de DRF) | DRF 401 → `client.js` |
-| Backend caído / fallo de red | `Error de red` | Fallback de `client.js` |
+| Backend caído / fallo de red | Caja de error: *"Error de red"* + ayuda *"Revisá tu conexión e intentá de nuevo."* | Fallback de `client.js` |
 
 Orden de prioridad del error en `client.js`: `err.error` → `err.detail` → `"Error de red"`.
 
 ### Detalles visuales
 
 - Estética pixel-art oscura: fuente Courier New, fondo `#111118`, acento verde `#4aaa8a`, errores en rojo (`#d45a5a`).
+- Identidad: logo de taza pixel-art (`src/frontend/src/assets/logo.png`, generado por `tools/preparar_logo.ps1`), título **¿Cuándo Vence?** y tagline *Control de vencimientos de productos perecederos*.
 - Formulario: `login-form card` con ancho máximo de 360px, centrado; botón **Acceder** al 100% del ancho.
-- Caja de error: `div.message.error` (fondo `#2a1a1a`, borde y texto rojos).
+- Caja de error: `div.error-box` (fondo `#2a1a1a`, borde y texto rojos) dentro del formulario, entre el campo **Contraseña** y el botón **Acceder**; dos líneas: título (`error-title`) y ayuda (`error-hint`). Lleva `role="alert"` y `aria-live="polite"`.
 
 ---
 
@@ -87,7 +88,7 @@ Orden de prioridad del error en `client.js`: `err.error` → `err.detail` → `"
 - Sin rate-limiting, captcha ni bloqueo de intentos fallidos.
 - Sin expiración ni renovación (refresh) del token; sin invalidación al hacer logout.
 - Sin validación del token contra el servidor al cargar la SPA ni sin "recordar usuario".
-- No existen tests de autenticación (`Inventory/tests.py` está vacío).
+- No hay tests de autenticación en el backend (`Inventory/tests.py` está vacío); los casos de uso de login están cubiertos por tests de componente en `src/frontend/src/pages/HomePage.test.jsx`.
 
 ---
 
