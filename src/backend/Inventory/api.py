@@ -1,10 +1,13 @@
-from rest_framework import viewsets, filters
+from rest_framework import filters, mixins, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-from .models import TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio
+from .models import (
+    TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio,
+    PerfilUsuario,
+)
 from .serializers import (
     TipoProductoSerializer, CondicionVencimientoSerializer,
     ProductoSerializer, VentaSerializer, DesperdicioSerializer,
@@ -18,7 +21,12 @@ class TipoProductoViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ['nombre']
     permission_classes = [IsAuthenticated]
 
-class ProductoViewSet(viewsets.ReadOnlyModelViewSet):
+class ProductoViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = Producto.objects.select_related('id_tipo_producto', 'id_condicion').all()
     serializer_class = ProductoSerializer
     filter_backends = [filters.SearchFilter]
@@ -101,4 +109,15 @@ def login_api(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def me(request):
-    return Response({'username': request.user.username, 'id': request.user.id})
+    foto_perfil = None
+    try:
+        perfil = request.user.perfil
+    except PerfilUsuario.DoesNotExist:
+        perfil = None
+    if perfil and perfil.foto_perfil:
+        foto_perfil = request.build_absolute_uri(perfil.foto_perfil.url)
+    return Response({
+        'username': request.user.username,
+        'id': request.user.id,
+        'foto_perfil': foto_perfil,
+    })
