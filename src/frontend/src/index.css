@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: 'Pixelify Sans', 'Lucida Console', monospace;
+  font-family: 'Workbench', 'Lucida Console', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;

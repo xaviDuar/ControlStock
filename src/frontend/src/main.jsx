@@ -1,4 +1,4 @@
-import '@fontsource/pixelify-sans'
+import '@fontsource/workbench'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'

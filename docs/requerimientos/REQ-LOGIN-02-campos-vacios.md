@@ -57,8 +57,8 @@ Se elimina la validación nativa del navegador y se reemplaza por validación pr
 
 | ID | Requerimiento |
 |---|---|
-| RNF-2.1 | El mensaje por campo (`FieldMsg`) es una línea de texto ámbar (`#d9b04a`) justo debajo del input, fuente Pixelify Sans, con `role="alert"` y asociada a su input mediante `aria-describedby`. |
-| RNF-2.2 | El mensaje general (`WarnBox`) usa el mismo patrón visual que la caja de error de REQ-LOGIN-03 (dos líneas jerarquizadas: título + ayuda, `role="alert"`), pero en **ámbar**: fondo `#2a2410`, borde y título `#d9b04a`, ayuda `#e8cf8f`, fuente Pixelify Sans. |
+| RNF-2.1 | El mensaje por campo (`FieldMsg`) es una línea de texto ámbar (`#d9b04a`) justo debajo del input, fuente Workbench, con `role="alert"` y asociada a su input mediante `aria-describedby`. |
+| RNF-2.2 | El mensaje general (`WarnBox`) usa el mismo patrón visual que la caja de error de REQ-LOGIN-03 (dos líneas jerarquizadas: título + ayuda, `role="alert"`), pero en **ámbar**: fondo `#2a2410`, borde y título `#d9b04a`, ayuda `#e8cf8f`, fuente Workbench. |
 | RNF-2.3 | Los inputs con campo vacío se resaltan con borde ámbar (`#d9b04a`); al completarlos, el borde vuelve al estilo normal. |
 | RNF-2.4 | La aparición de cualquier mensaje no desplaza el formulario de forma que tape el botón **Acceder** (el botón sigue visible y accesible). |
 | RNF-2.5 | El foco pasa al primer campo vacío al intentar enviar el formulario. |

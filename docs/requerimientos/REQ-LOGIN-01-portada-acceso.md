@@ -56,12 +56,12 @@ Según el mockup `Portada`, el bloque de identidad pasa a estar compuesto por:
 
 | ID | Requerimiento |
 |---|---|
-| RNF-1.1 | La composición, tipografía, colores y espaciados siguen el mockup `Portada` (`docs/pantallas.pen`), dentro de la estética pixel-art oscura de la aplicación (fuente **Pixelify Sans**, fondo `#111118`, acento verde `#4aaa8a`). |
+| RNF-1.1 | La composición, tipografía, colores y espaciados siguen el mockup `Portada` (`docs/pantallas.pen`), dentro de la estética pixel-art oscura de la aplicación (fuente **Workbench**, fondo `#111118`, acento verde `#4aaa8a`). |
 | RNF-1.2 | El formulario mantiene un ancho acotado (~360px) y centrado; el botón **Acceder** ocupa el 100% del ancho del formulario. |
 | RNF-1.3 | El campo **Contraseña** oculta el valor ingresado (máscara de puntos). |
 | RNF-1.4 | El asset del logo es `src/frontend/src/assets/logo.png` (taza de café pixel-art recortada, trazo `#4aaa8a` sobre fondo transparente). Se usa **solo la taza**, sin el texto incrustado *¿cuándo vence? / Control de Stock*: el mockup muestra nombre y tagline como elementos de texto propios, con el tagline *Control de vencimientos de productos perecederos*. |
 | RNF-1.5 | El icono del ojo (`EyeToggleBtn`) sigue la estética pixel-art de la app (trazo `#4aaa8a` o gris claro sobre fondo oscuro), tamaño acotado (~20px), alineado a la derecha dentro del input de contraseña, sin desplazar ni tapar el valor escrito. |
-| RNF-1.6 | La tipografía de toda la app es **Pixelify Sans** (pixel-art), reemplazando a Courier New. Aplica a esta pantalla y al resto de la aplicación. |
+| RNF-1.6 | La tipografía de toda la app es **Workbench** (pixel-art retro), reemplazando a Courier New. Aplica a esta pantalla y al resto de la aplicación. |
 
 ## 6. Casos de uso
 
@@ -139,7 +139,7 @@ Según el mockup `Portada`, el bloque de identidad pasa a estar compuesto por:
 | CA-1.4 | **Given** un usuario con sesión, **when** navega a `/`, **then** no ve el formulario sino los atajos actuales. |
 | CA-1.5 | **Given** la pantalla de acceso con contraseña escrita y oculta (`••••`), **when** el usuario pulsa el botón de ojo, **then** el valor se muestra en texto plano sin perder lo escrito y el icono cambia a su estado "ocultar". |
 | CA-1.6 | **Given** la contraseña visible, **when** el usuario vuelve a pulsar el botón de ojo, **then** el campo vuelve a enmascararse y el valor se conserva. |
-| CA-1.7 | **Given** un usuario navegando la aplicación (en la pantalla de acceso o en cualquier otra), **when** observa los textos en pantalla, **then** la tipografía que ve es **Pixelify Sans**, sin rastros de la fuente anterior (Courier New). |
+| CA-1.7 | **Given** un usuario navegando la aplicación (en la pantalla de acceso o en cualquier otra), **when** observa los textos en pantalla, **then** la tipografía que ve es **Workbench**, sin rastros de la fuente anterior (Courier New). |
 | CA-1.8 | **Given** un usuario sin sesión, **when** navega a `/`, **then** no ve ninguna barra de navegación (Navbar): la pantalla muestra solo identidad y formulario. |
 | CA-1.9 | **Given** un usuario con sesión, **when** navega a `/`, **then** el Navbar se muestra normalmente (comportamiento actual, sin cambio). |
 | CA-1.10 | **Given** un usuario sin sesión, **when** navega a `/`, **then** ve el Footer al pie de la pantalla (junto con identidad y formulario), y no ve el párrafo descriptivo del hero. |
@@ -156,7 +156,8 @@ Según el mockup `Portada`, el bloque de identidad pasa a estar compuesto por:
 | 1 | Párrafo descriptivo del hero | **Confirmado:** se elimina para alinearse al mockup (RF-1.7). |
 | 2 | Icono del logo | **Confirmado:** asset `src/frontend/src/assets/logo.png` (taza de café pixel-art). Usar solo la taza, sin el texto incrustado (RNF-1.4). |
 | 3 | Mayúsculas del título | **Decisión actualizada (usuario):** el título se muestra en mayúsculas **¿CUÁNDO VENCE?** (RF-1.8), a diferencia del mockup (*¿Cuándo Vence?*). Se revierte la decisión anterior, que adoptaba el texto del mockup. |
-| 4 | Tipografía | **Confirmado (usuario):** se reemplaza Courier New por **Pixelify Sans** (pixel-art) en toda la app (RNF-1.6). |
+| 4 | Tipografía | **Confirmado (usuario):** se reemplaza Courier New por **Pixelify Sans** (pixel-art) en toda la app (RNF-1.6). *(Superada por la decisión #8.)* |
 | 5 | Ver/ocultar contraseña | **Confirmado (usuario):** botón de ojo pixel-art dentro del input de contraseña que alterna la visibilidad mientras se escribe (RF-1.9/1.10). **Nota:** el mockup `Portada` no incluye este botón — es un cambio acordado sobre el mockup. |
 | 6 | Navbar en la pantalla de login | **Confirmado (usuario):** sin sesión iniciada, `/` no muestra el Navbar (igual que el frame `Portada` del mockup). Con sesión iniciada se mantiene. |
 | 7 | Footer en la pantalla de login | **Confirmado (usuario):** el Footer **se muestra** en la pantalla de login (RF-1.12), aunque el frame `Portada` del mockup no lo incluya. La eliminación del párrafo descriptivo (RF-1.7) se refiere solo al párrafo del hero, **no** a la línea *"Diseñado para…"* del footer. |
+| 8 | Tipografía (actualización) | **Decisión actualizada (usuario, 2026-11-03):** la tipografía de la app es **Workbench** (pixel-art retro, estética CRT), reemplazando a **Pixelify Sans** (que a su vez reemplazaba a Courier New). Workbench tiene un único peso (400): donde el diseño pide negrita se usa negrita sintética del navegador, con la jerarquía reforzada por tamaño y color. Superpone a la decisión #4. |
