@@ -257,6 +257,23 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* Login */
+.login-form .password-wrap { position: relative; }
+
+.login-form .password-wrap input { padding-right: 34px; }
+
+.login-form .eye-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .login-form {
   max-width: 360px;
   margin: 0 auto;

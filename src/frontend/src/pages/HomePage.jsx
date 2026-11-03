@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
+import EyeToggleBtn from '../components/EyeToggleBtn';
 import logo from '../assets/logo.png';
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
@@ -52,8 +54,11 @@ export default function HomePage() {
           </div>
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
-            <input type="password" id="password" placeholder="Ingresá tu contraseña" required
-              value={password} onChange={e => setPassword(e.target.value)} />
+            <div className="password-wrap">
+              <input type={showPassword ? 'text' : 'password'} id="password" placeholder="Ingresá tu contraseña" required
+                value={password} onChange={e => setPassword(e.target.value)} />
+              <EyeToggleBtn visible={showPassword} onToggle={() => setShowPassword(v => !v)} />
+            </div>
           </div>
           {error && (
             <div className="error-box" role="alert">

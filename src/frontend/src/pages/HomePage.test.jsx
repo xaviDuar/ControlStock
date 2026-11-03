@@ -135,3 +135,36 @@ describe('casos de uso de login (regresión)', () => {
     expect(screen.queryByLabelText('Usuario')).toBeNull();
   });
 });
+
+describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
+  test('CA-1.5 el ojo muestra el valor sin perder lo escrito y cambia el aria-label', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    const password = screen.getByLabelText('Contraseña');
+    fireEvent.change(password, { target: { value: 'secreta' } });
+    expect(password.type).toBe('password');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
+    expect(password.type).toBe('text');
+    expect(password.value).toBe('secreta');
+    expect(screen.getByRole('button', { name: 'Ocultar contraseña' })).toBeTruthy();
+  });
+
+  test('CA-1.6 vuelve a enmascarar conservando el valor', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    const password = screen.getByLabelText('Contraseña');
+    fireEvent.change(password, { target: { value: 'secreta' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Ocultar contraseña' }));
+    expect(password.type).toBe('password');
+    expect(password.value).toBe('secreta');
+  });
+
+  test('el botón de ojo no envía el formulario', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
+    expect(loginUser).not.toHaveBeenCalled();
+    expect(navigate).not.toHaveBeenCalled();
+  });
+});
