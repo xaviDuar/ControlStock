@@ -34,7 +34,7 @@ export default function HomePage() {
       <div className="hero-logo">
         <img src={logo} alt="¿Cuándo Vence?" />
       </div>
-      <h1>¿Cuándo Vence?</h1>
+      <h1>¿CUÁNDO VENCE?</h1>
       <p className="hero-sub">Control de vencimientos de productos perecederos</p>
       <div className="pixel-line"></div>
 

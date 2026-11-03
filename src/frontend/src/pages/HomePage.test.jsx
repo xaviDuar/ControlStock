@@ -32,7 +32,7 @@ describe('REQ-LOGIN-01 identidad de portada', () => {
   test('CA-1.1 muestra identidad y formulario sin párrafo descriptivo', () => {
     render(<MemoryRouter><HomePage /></MemoryRouter>);
     expect(screen.getByAltText('¿Cuándo Vence?')).toBeTruthy();
-    expect(screen.getByText('¿Cuándo Vence?')).toBeTruthy();
+    expect(screen.getByText('¿CUÁNDO VENCE?')).toBeTruthy();
     expect(screen.getByText('Control de vencimientos de productos perecederos')).toBeTruthy();
     expect(screen.getByLabelText('Usuario')).toBeTruthy();
     expect(screen.getByLabelText('Contraseña')).toBeTruthy();
