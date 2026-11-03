@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: 'Courier New', 'Lucida Console', monospace;
+  font-family: 'Pixelify Sans', 'Lucida Console', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -130,7 +130,7 @@ h3 { font-size: 0.95rem; margin-bottom: 10px; }
 
 /* Buttons */
 button, .btn, input[type="submit"] {
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
   background: var(--bg-card);
   color: var(--accent-dark);
   border: 2px solid var(--accent);
@@ -176,7 +176,7 @@ input[type="date"],
 input[type="number"],
 select,
 textarea {
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
   background: var(--bg-card);
   color: var(--text);
   border: 2px solid var(--border);
