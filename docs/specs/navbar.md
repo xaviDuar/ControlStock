@@ -1,12 +1,16 @@
 # Menú principal (Navbar)
 
+> ⚠️ **Cambio acordado (pendiente de implementar):** la pantalla de login (portada **sin sesión iniciada**) **no debe mostrar el Navbar** — ver [REQ-LOGIN-01](../requerimientos/REQ-LOGIN-01-portada-acceso.md) RF-1.11. Este spec describe el comportamiento actual (Navbar en todas las rutas).
+>
+> ⚠️ **Cambio acordado (pendiente de implementar):** el **logo del Navbar** pasa a ser **icono + nombre**: la taza de café pixel-art (`src/frontend/src/assets/logo.png`, mismo asset que la portada) al lado del nombre *¿CUÁNDO VENCE?* (mayúsculas, igual que el título de la portada). El mockup `Navbar` muestra solo el texto en mixto — este es un cambio acordado sobre el mockup.
+
 Funcionalidad que **permite desplazarse entre las secciones disponibles según el estado de la sesión** en **¿Cuándo Vence?**. Es la quinta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
 
 ---
 
 ## Qué hace
 
-- Muestra una barra de navegación fija (sticky) con el logo **¿CUÁNDO VENCE?** y los enlaces de las secciones.
+- Muestra una barra de navegación fija (sticky) con el logo (icono de taza + nombre **¿CUÁNDO VENCE?** en mayúsculas) y los enlaces de las secciones.
 - El menú se adapta al estado de la sesión:
   - **Sin sesión:** *Inicio* y *Acceder* (llevan a la portada `/`).
   - **Con sesión:** *Inicio*, *Inventario*, *Rótulos* y el botón **Salir (usuario)**.
@@ -31,7 +35,7 @@ Funcionalidad que **permite desplazarse entre las secciones disponibles según e
 
 ### Estructura del menú
 
-- **Logo:** `<Link to="/" className="nav-logo">¿CUÁNDO VENCE?</Link>` — siempre visible, lleva a la portada.
+- **Logo:** `<Link to="/" className="nav-logo"><img src={logo} /> ¿CUÁNDO VENCE?</Link>` — icono de taza (`src/frontend/src/assets/logo.png`) + nombre en mayúsculas, siempre visibles, llevan a la portada. *(Cambio acordado — hoy es solo texto `¿CUÁNDO VENCE?`; ver aviso al inicio.)*
 - **Sin sesión** (`user` nulo):
   - *Inicio* → `/`
   - *Acceder* → `/`

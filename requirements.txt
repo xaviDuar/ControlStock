@@ -1,0 +1,18 @@
+# Dependencias del backend — Python 3.13
+#
+# En una maquina nueva no hace falta instalar nada a mano:
+# ejecutar "setup.bat" desde la raiz del proyecto crea el entorno
+# virtual (entorno/) e instala todo lo que figura aca.
+#
+# Si instalas algo nuevo dentro del entorno, actualiza este archivo con:
+#   entorno\Scripts\python.exe -m pip freeze
+
+# Dependencias directas
+Django==6.0.5
+djangorestframework==3.17.1
+django-cors-headers==4.9.0
+
+# Dependencias transitivas (fijadas para que el entorno sea identico en todas las maquinas)
+asgiref==3.11.1
+sqlparse==0.5.5
+tzdata==2026.2

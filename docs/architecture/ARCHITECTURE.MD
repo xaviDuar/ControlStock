@@ -129,7 +129,7 @@ erDiagram
 
 - `POST /api/auth/login/` → usuario + password → devuelve token (DRF authtoken).
 - El resto de `/api/` exige `Authorization: Token <token>`.
-- **Sin `SessionAuthentication` a propósito**: con frontend y backend en el mismo origen, el browser manda la cookie de sesión y DRF exigiría CSRF en `/api/` (ver gotchas en `src/backend/README.md`).
+- **Sin `SessionAuthentication` a propósito**: con frontend y backend en el mismo origen, el browser manda la cookie de sesión y DRF exigiría CSRF en `/api/` (ver «Advertencias» en [`AGENTS.md`](../../AGENTS.md)).
 - `/admin/` usa sesiones de Django por su cuenta (no pasa por DRF).
 
 ## Capas del frontend (`src/frontend/`)
@@ -141,6 +141,18 @@ main.jsx → App.jsx (Router + layout)
             ├─ context/     → AuthContext (token + user en localStorage)
             └─ api/client.js → fetch centralizado (inyecta el token)
 ```
+
+### Rutas
+
+| URL | Página | Descripción |
+|---|---|---|
+| `/` | `HomePage` | Portada con login |
+| `/inventario` | `InventoryPage` | Tabla de tipos de producto con buscador (protegida) |
+| `/rotulos` | `RotulosPage` | Carrito para armar la lista de rótulos (protegida) |
+
+Las rutas protegidas usan `ProtectedRoute`, que redirige a `/` si no hay token en `localStorage`.
+
+Estética: minimalista pixel art — fondo claro, tipografía monospace, detalles pixelados, logo pixel art (`src/frontend/src/assets/logo.png`).
 
 ### Flujos principales
 
