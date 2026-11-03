@@ -1,6 +1,8 @@
 *.pyc
 __pycache__/
 *.sqlite3
+entorno/
 node_modules/
 dist/
 .env
+.superpowers/

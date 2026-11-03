@@ -7,9 +7,10 @@ export async function api(endpoint, options = {}) {
     const { token } = JSON.parse(auth);
     headers['Authorization'] = `Token ${token}`;
   }
-  const res = await fetch(`${BASE}${endpoint}`, { ...options, headers });
+  const res = await fetch(`${BASE}${endpoint}`, { ...options, headers })
+    .catch(() => { throw new Error('Error de red'); });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: res.statusText }));
+    const err = await res.json().catch(() => ({}));
     throw new Error(err.error || err.detail || 'Error de red');
   }
   return res.json();

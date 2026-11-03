@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: 'Courier New', 'Lucida Console', monospace;
+  font-family: 'Workbench', 'Lucida Console', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -130,7 +130,7 @@ h3 { font-size: 0.95rem; margin-bottom: 10px; }
 
 /* Buttons */
 button, .btn, input[type="submit"] {
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
   background: var(--bg-card);
   color: var(--accent-dark);
   border: 2px solid var(--accent);
@@ -176,7 +176,7 @@ input[type="date"],
 input[type="number"],
 select,
 textarea {
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
   background: var(--bg-card);
   color: var(--text);
   border: 2px solid var(--border);
@@ -241,21 +241,39 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 4px;
 }
 
+.hero-logo img {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+  margin: 0 auto 8px;
+  display: block;
+}
+
 .hero .pixel-line {
   width: 48px;
   height: 2px;
   background: var(--accent);
-  margin: 16px auto;
-}
-
-.hero p {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  margin: 0 auto 28px;
-  line-height: 1.7;
+  margin: 16px auto 32px;
 }
 
 /* Login */
+.login-form .password-wrap { position: relative; }
+
+.login-form .password-wrap input { padding-right: 34px; }
+
+.login-form .eye-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .login-form {
   max-width: 360px;
   margin: 0 auto;
@@ -276,6 +294,58 @@ input:focus, select:focus, textarea:focus {
 
 .login-form input {
   width: 100%;
+}
+
+.login-form .error-box {
+  background: #2a1a1a;
+  border: 2px solid #d45a5a;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.login-form .error-box .error-title {
+  color: #d45a5a;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-form .error-box .error-hint {
+  color: #e08a8a;
+  font-size: 0.75rem;
+  margin: 4px 0 0;
+}
+
+.login-form input.input-error {
+  border-color: #d9b04a;
+}
+
+.login-form .field-msg {
+  color: #d9b04a;
+  font-size: 0.72rem;
+  margin: 4px 0 0;
+}
+
+.login-form .warn-box {
+  background: #2a2410;
+  border: 2px solid #d9b04a;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.login-form .warn-box .warn-title {
+  color: #d9b04a;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-form .warn-box .warn-hint {
+  color: #e8cf8f;
+  font-size: 0.75rem;
+  margin: 4px 0 0;
 }
 
 /* Product table */
