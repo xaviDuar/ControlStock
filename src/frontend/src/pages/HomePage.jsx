@@ -17,6 +17,7 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [missing, setMissing] = useState(NO_MISSING);
   const [marked, setMarked] = useState(NO_MISSING);
+  const [showWarnBox, setShowWarnBox] = useState(false);
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -37,6 +38,7 @@ export default function HomePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
+    setShowWarnBox(false);
     const faltan = {
       username: username.trim() === '',
       password: password.trim() === '',
@@ -44,6 +46,7 @@ export default function HomePage() {
     if (faltan.username || faltan.password) {
       setMissing(faltan);
       setMarked(faltan);
+      setShowWarnBox(faltan.username && faltan.password);
       (faltan.username ? usernameRef : passwordRef).current.focus();
       return;
     }
@@ -111,6 +114,12 @@ export default function HomePage() {
               <p className="field-msg" id="msg-password" role="alert">{FIELD_MSG}</p>
             )}
           </div>
+          {showWarnBox && (
+            <div className="warn-box" role="alert">
+              <p className="warn-title">Campos incompletos</p>
+              <p className="warn-hint">Por favor, completá los campos solicitados.</p>
+            </div>
+          )}
           {error && (
             <div className="error-box" role="alert">
               <p className="error-title">{error.title}</p>

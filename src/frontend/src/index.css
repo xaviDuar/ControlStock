@@ -327,6 +327,27 @@ input:focus, select:focus, textarea:focus {
   margin: 4px 0 0;
 }
 
+.login-form .warn-box {
+  background: #2a2410;
+  border: 2px solid #d9b04a;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.login-form .warn-box .warn-title {
+  color: #d9b04a;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-form .warn-box .warn-hint {
+  color: #e8cf8f;
+  font-size: 0.75rem;
+  margin: 4px 0 0;
+}
+
 /* Product table */
 .product-list {
   display: flex;

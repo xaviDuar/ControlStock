@@ -253,4 +253,66 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
     expect(screen.getByLabelText('Usuario').closest('.form-group').contains(alerta)).toBe(true);
     expect(loginUser).not.toHaveBeenCalled();
   });
+
+  test('CA-2.3 ambos vacíos: solo la caja general, sin mensajes por campo', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    expect(screen.getByText('Campos incompletos')).toBeTruthy();
+    expect(screen.getByText('Por favor, completá los campos solicitados.')).toBeTruthy();
+    expect(screen.queryByText('Por favor, rellená este campo.')).toBeNull();
+    expect(screen.getByLabelText('Usuario').className).toContain('input-error');
+    expect(screen.getByLabelText('Contraseña').className).toContain('input-error');
+    expect(loginUser).not.toHaveBeenCalled();
+  });
+
+  test('la caja general va entre Contraseña y Acceder', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const warnBox = screen.getByText('Campos incompletos').parentElement;
+    const password = screen.getByLabelText('Contraseña');
+    const boton = screen.getByRole('button', { name: 'Acceder' });
+    expect(password.compareDocumentPosition(warnBox) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(warnBox.compareDocumentPosition(boton) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  test('con ambos vacíos el foco pasa a Usuario', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+    expect(document.activeElement).toBe(screen.getByLabelText('Usuario'));
+  });
+
+  test('la advertencia reemplaza al error previo: nunca coexisten', async () => {
+    loginUser.mockRejectedValue(new Error('Credenciales inválidas'));
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'mala' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+    await screen.findByRole('alert');
+
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: '' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: '' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const alertas = screen.getAllByRole('alert');
+    expect(alertas).toHaveLength(1);
+    expect(alertas[0].textContent).toContain('Campos incompletos');
+    expect(alertas[0].textContent).not.toContain('Credenciales inválidas');
+  });
+
+  test('UC-02.2 alt 3a: con un solo campo completado reaparece el mensaje individual', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+    expect(screen.getByText('Campos incompletos')).toBeTruthy();
+
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    expect(screen.queryByText('Campos incompletos')).toBeNull();
+    const alerta = screen.getByRole('alert');
+    expect(alerta.textContent).toBe('Por favor, rellená este campo.');
+    expect(screen.getByLabelText('Contraseña').closest('.form-group').contains(alerta)).toBe(true);
+    expect(loginUser).not.toHaveBeenCalled();
+  });
 });
