@@ -1,6 +1,6 @@
 # Menú principal (Navbar)
 
-> ⚠️ **Cambio acordado (pendiente de implementar):** la pantalla de login (portada **sin sesión iniciada**) **no debe mostrar el Navbar** — ver [REQ-LOGIN-01](../requerimientos/REQ-LOGIN-01-portada-acceso.md) RF-1.11. Este spec describe el comportamiento actual (Navbar en todas las rutas).
+> ⚠️ **Cambio acordado (pendiente de implementar):** la pantalla de login (portada **sin sesión iniciada**) **no debe mostrar el Navbar** — ver [REQ-LOGIN-01](../requerimientos/implementados/REQ-LOGIN-01-portada-acceso.md) RF-1.11. Este spec describe el comportamiento actual (Navbar en todas las rutas).
 >
 > ⚠️ **Cambio acordado (pendiente de implementar):** el **logo del Navbar** pasa a ser **icono + nombre**: la taza de café pixel-art (`src/frontend/src/assets/logo.png`, mismo asset que la portada) al lado del nombre *¿CUÁNDO VENCE?* (mayúsculas, igual que el título de la portada). El mockup `Navbar` muestra solo el texto en mixto — este es un cambio acordado sobre el mockup.
 

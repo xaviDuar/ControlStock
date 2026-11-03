@@ -6,8 +6,12 @@
 
 > Ver [`OVERVIEW.md`](./OVERVIEW.md) para la descripción del objetivo del proyecto.
 > Arquitectura del sistema: [`docs/architecture/ARCHITECTURE.MD`](./docs/architecture/ARCHITECTURE.MD).
-> Requerimientos de login: `docs/requerimientos/` — REQ-LOGIN-01/02/03, derivados de los mockups de `docs/pantallas.pen`.
+> Requerimientos de login: `docs/requerimientos/implementados/` — REQ-LOGIN-01/02/03, derivados de los mockups de `docs/pantallas.pen`. Carpeta **solo para el usuario** (ver *Restricción de acceso*).
 > Especificaciones funcionales: [`docs/specs/funcionalidades.md`](./docs/specs/funcionalidades.md) — índice de specs, lista cada funcionalidad con su spec propia en `docs/specs/`.
+
+## Restricción de acceso — `docs/requerimientos/implementados/`
+
+`docs/requerimientos/implementados/` es **solo para el usuario**. La IA no puede leer esa carpeta — ni listar ni abrir sus archivos — a menos que el usuario lo permita explícitamente. La restricción aplica a cualquier herramienta de lectura (Read, Grep, Glob, scripts) y también a los subagentes. Si necesitás información que esté guardada ahí, pedila al usuario en lugar de leer los archivos.
 
 ## Comandos de desarrollo
 
