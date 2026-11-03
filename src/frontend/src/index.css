@@ -317,6 +317,16 @@ input:focus, select:focus, textarea:focus {
   margin: 4px 0 0;
 }
 
+.login-form input.input-error {
+  border-color: #d9b04a;
+}
+
+.login-form .field-msg {
+  color: #d9b04a;
+  font-size: 0.72rem;
+  margin: 4px 0 0;
+}
+
 /* Product table */
 .product-list {
   display: flex;

@@ -117,14 +117,10 @@ describe('casos de uso de login (regresión)', () => {
     expect(screen.queryByRole('alert')).toBeNull();
   });
 
-  test('CA-2.1/2.4 REQ-02 ambos campos son requeridos con sus placeholders', () => {
+  test('los inputs conservan sus placeholders', () => {
     render(<MemoryRouter><HomePage /></MemoryRouter>);
-    const usuario = screen.getByLabelText('Usuario');
-    const password = screen.getByLabelText('Contraseña');
-    expect(usuario.required).toBe(true);
-    expect(usuario.placeholder).toBe('Ingresá tu usuario');
-    expect(password.required).toBe(true);
-    expect(password.placeholder).toBe('Ingresá tu contraseña');
+    expect(screen.getByLabelText('Usuario').placeholder).toBe('Ingresá tu usuario');
+    expect(screen.getByLabelText('Contraseña').placeholder).toBe('Ingresá tu contraseña');
   });
 
   test('CA-1.4 UC-01.3 con sesión iniciada muestra atajos y no el formulario', () => {
@@ -166,5 +162,95 @@ describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
     expect(loginUser).not.toHaveBeenCalled();
     expect(navigate).not.toHaveBeenCalled();
+  });
+});
+
+describe('REQ-LOGIN-02 validación de campos vacíos', () => {
+  test('CA-2.1/2.7 un solo campo vacío: mensaje debajo de ese input y ningún request', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const alertas = screen.getAllByRole('alert');
+    expect(alertas).toHaveLength(1);
+    expect(alertas[0].textContent).toBe('Por favor, rellená este campo.');
+    const password = screen.getByLabelText('Contraseña');
+    expect(password.closest('.form-group').contains(alertas[0])).toBe(true);
+    expect(loginUser).not.toHaveBeenCalled();
+  });
+
+  test('CA-2.2 el mensaje va debajo del campo vacío y el foco pasa a él', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const alerta = screen.getByRole('alert');
+    const usuario = screen.getByLabelText('Usuario');
+    expect(usuario.closest('.form-group').contains(alerta)).toBe(true);
+    expect(document.activeElement).toBe(usuario);
+    expect(loginUser).not.toHaveBeenCalled();
+  });
+
+  test('CA-2.4 el input faltante queda con borde ámbar y conserva el placeholder', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const usuario = screen.getByLabelText('Usuario');
+    expect(usuario.className).toContain('input-error');
+    expect(usuario.placeholder).toBe('Ingresá tu usuario');
+  });
+
+  test('CA-2.5/2.6 completar y reintentar limpia los mensajes y el envío procede', async () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+    expect(screen.getByText('Por favor, rellená este campo.')).toBeTruthy();
+
+    loginUser.mockResolvedValue({ token: 't1', username: 'admin' });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    await waitFor(() => expect(loginUser).toHaveBeenCalledWith('admin', 'secret123'));
+    expect(screen.queryAllByRole('alert')).toHaveLength(0);
+  });
+
+  test('RF-2.3 el borde ámbar se limpia al escribir pero el mensaje persiste', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+    const password = screen.getByLabelText('Contraseña');
+    expect(password.className).toContain('input-error');
+
+    fireEvent.change(password, { target: { value: 'x' } });
+    expect(password.className).not.toContain('input-error');
+    expect(screen.getByText('Por favor, rellená este campo.')).toBeTruthy();
+  });
+
+  test('RF-2.5 ya no hay validación nativa', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    for (const el of [screen.getByLabelText('Usuario'), screen.getByLabelText('Contraseña')]) {
+      expect(el.required).toBe(false);
+      expect(el.getAttribute('required')).toBeNull();
+    }
+  });
+
+  test('con Enter en un input vacío tampoco se emite request', () => {
+    const { container } = render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
+    fireEvent.submit(container.querySelector('form'));
+    expect(loginUser).not.toHaveBeenCalled();
+  });
+
+  test('un valor de solo espacios cuenta como vacío', () => {
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: '   ' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
+
+    const alerta = screen.getByRole('alert');
+    expect(alerta.textContent).toBe('Por favor, rellená este campo.');
+    expect(screen.getByLabelText('Usuario').closest('.form-group').contains(alerta)).toBe(true);
+    expect(loginUser).not.toHaveBeenCalled();
   });
 });
