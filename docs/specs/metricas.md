@@ -1,6 +1,6 @@
 # Métricas por producto
 
-Funcionalidad que **calcula por cada producto su rendimiento, ingresos, costos y ganancia en función de ventas y desperdicios** en **¿Cuándo Vence?**. Es la decimoctava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **calcula por cada producto su rendimiento, ingresos, costos y ganancia en función de ventas y desperdicios** en **¿Cuándo Vence?**. Es la decimoctava funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -84,4 +84,4 @@ Funcionalidad que **calcula por cada producto su rendimiento, ingresos, costos y
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

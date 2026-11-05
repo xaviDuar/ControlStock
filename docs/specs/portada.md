@@ -1,6 +1,6 @@
-# Portada
+# Portada (v2)
 
-Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y el formulario de login** en **¿Cuándo Vence?**. Es la sexta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y el formulario de login** en **¿Cuándo Vence?**. Es la sexta funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -74,4 +74,4 @@ Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

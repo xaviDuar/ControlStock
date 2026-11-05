@@ -3,12 +3,14 @@
 Listado general de las funcionalidades implementadas en **¿Cuándo Vence?**, con una descripción breve de lo que permiten hacer.
 
 > Cada funcionalidad se detallará en un archivo propio dentro de `docs/specs/`.
+>
+> **(v2)** — marca los archivos que cambiaron: son funcionalidades que ya fueron vistas y se implementaron sin errores, con su spec actualizado a la segunda versión (v2).
 
 ---
 
 ## Autenticación y sesión
 
-- [**Login**](./login.md) — Permite iniciar sesión con usuario y contraseña para acceder a las secciones protegidas de la página.
+- [**Login**](./login.md) (v2) — Permite iniciar sesión con usuario y contraseña para acceder a las secciones protegidas de la página.
 - [**Sesión persistente**](./sesionpersistente.md) — Mantiene al usuario identificado aunque recargue la página, y lo libera al salir.
 - [**Logout**](./logout.md) — Permite cerrar la sesión y volver a la portada.
 - [**Rutas protegidas**](./rutasprotegidas.md) — Impide entrar a las pantallas internas sin haber iniciado sesión, redirigiendo a la portada.
@@ -16,7 +18,7 @@ Listado general de las funcionalidades implementadas en **¿Cuándo Vence?**, co
 ## Navegación
 
 - [**Menú principal (Navbar)**](./navbar.md) — Permite desplazarse entre las secciones disponibles según el estado de la sesión.
-- [**Portada**](./portada.md) — Pantalla de acceso con la identidad del sistema y el formulario de login.
+- [**Portada**](./portada.md) (v2) — Pantalla de acceso con la identidad del sistema y el formulario de login.
 
 ## Inventario
 

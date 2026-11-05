@@ -38,6 +38,12 @@ Browser ── http://localhost:5173 ──▶ Vite (HMR)
 - Vite (5173) con Hot Module Replacement; proxea `/api` a Django (ver `vite.config.js`).
 - Útil mientras se desarrolla el frontend; en producción no se usa.
 
+### Operación (raíz del repositorio)
+
+- `setup.bat` — setup de una máquina nueva (crea `entorno/`, instala las dependencias de `requirements.txt`, build del frontend y migraciones; requiere Python 3.13 y Node.js instalados).
+- `iniciar.bat` — uso diario: arranca la app en http://127.0.0.1:8000.
+- `requirements.txt` — dependencias de Python con versiones fijadas.
+
 ## Capas del backend (`src/backend/`)
 
 ```
@@ -71,7 +77,7 @@ TipoProducto 1──N CondicionVencimiento
                  └──N Desperdicio
 ```
 
-Diagrama entidad-relación (generado desde los modelos Django con `src/backend/tools/gen_diagrama_er.py`; fuente: [`diagrama-er.mmd`](./diagrama-er.mmd)):
+Diagrama entidad-relación:
 
 ```mermaid
 erDiagram
@@ -157,13 +163,20 @@ erDiagram
 - `manage.py replace_inventory_demo --replace` reemplaza los lotes de demostración en una transacción; no es una migración y conserva el catálogo `TipoProducto`/`CondicionVencimiento`.
 - La base actual contiene 93 tipos, 222 condiciones y diez lotes ficticios de ejemplo; ventas y desperdicios no tienen registros asociados.
 
-### Autenticación
+### API REST (`/api/`)
 
-- `POST /api/auth/login/` → usuario + password → devuelve token (DRF authtoken).
-- `GET /api/auth/me/` → `username`, `id` y `foto_perfil` (URL absoluta o `null`).
-- `GET/POST /api/productos/` → consulta y alta de lotes; detalle con GET. No habilita PUT, PATCH ni DELETE.
-- El resto de `/api/` exige `Authorization: Token <token>`.
-- **Sin `SessionAuthentication` a propósito**: con frontend y backend en el mismo origen, el browser manda la cookie de sesión y DRF exigiría CSRF en `/api/` (ver «Advertencias» en [`AGENTS.md`](../../AGENTS.md)).
+- `POST /api/auth/login/` — usuario + password → devuelve token (DRF authtoken).
+- `GET /api/auth/me/` — `username`, `id` y `foto_perfil` (URL absoluta o `null`); requiere autenticación.
+- `GET/POST /api/productos/` — consulta y alta de lotes; detalle con GET. No habilita PUT, PATCH ni DELETE. Incluye `condicion`.
+- `GET /api/tipos/` — lista de TipoProducto (solo lectura, incluye `condiciones`).
+- `GET /api/condiciones/` — lista de CondicionVencimiento (solo lectura).
+- `GET /api/ventas/` — lista de Venta (solo lectura).
+- `GET /api/desperdicios/` — lista de Desperdicio (solo lectura).
+- `GET /api/metricas/` — rendimiento/desperdicio/ganancia por producto (solo lectura).
+
+Autenticación: `rest_framework` solo con autenticación por Token (+ Basic); el resto de `/api/` exige `Authorization: Token <token>`.
+
+- **Sin `SessionAuthentication` a propósito**: con frontend y backend en el mismo origen, el browser manda la cookie de sesión y DRF exigiría CSRF en `/api/`.
 - `/admin/` usa sesiones de Django por su cuenta (no pasa por DRF).
 
 ## Capas del frontend (`src/frontend/`)
@@ -213,4 +226,4 @@ Estética: minimalista pixel art — fondo claro, tipografía monospace, detalle
 - Las fotos de `media/` son archivos separados de SQLite; incluir ambas ubicaciones en cualquier respaldo operativo.
 - Locale `es-ar`; `CORS_ALLOW_ALL_ORIGINS = True` (solo dev).
 - `dist/` está gitignoreado: en cada deploy hay que correr `npm run build`.
-- Scripts de un solo uso (`tools/`): `migrar_vencimientos.py` (ya ejecutado 2026-06-24); `inspect_venc.py` solo lectura.
+- Scripts de un solo uso (`src/backend/tools/`): `migrar_vencimientos.py` (ya ejecutado 2026-06-24); `inspect_venc.py` solo lectura.

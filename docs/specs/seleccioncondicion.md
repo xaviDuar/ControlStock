@@ -1,6 +1,6 @@
 # Selección de condición
 
-Funcionalidad que **permite elegir, para cada método de conservación, la condición de vencimiento aplicable** (ej. bolsa cerrada o abierta) en **¿Cuándo Vence?**. Es la décima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite elegir, para cada método de conservación, la condición de vencimiento aplicable** (ej. bolsa cerrada o abierta) en **¿Cuándo Vence?**. Es la décima funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -63,4 +63,4 @@ Funcionalidad que **permite elegir, para cada método de conservación, la condi
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

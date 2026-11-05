@@ -1,6 +1,6 @@
 # Logout
 
-Funcionalidad que **permite cerrar la sesión y volver a la portada** en **¿Cuándo Vence?**. Es la tercera funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite cerrar la sesión y volver a la portada** en **¿Cuándo Vence?**. Es la tercera funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -78,4 +78,4 @@ No hay confirmación previa ni mensaje de éxito: la salida es inmediata.
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

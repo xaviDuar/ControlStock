@@ -1,17 +1,86 @@
 # AGENTS.md
 
+## Estructura de carpetas
+
+```text
+proyectoStock/
+├── docs/                        # documentación del proyecto
+│   ├── architecture/            # arquitectura del sistema (capas, modelo de datos, decisiones)
+│   ├── specs/                   # especificación funcional: una spec por funcionalidad + su índice
+│   └── requerimientos/          # requerimientos funcionales del sistema
+│       ├── implementados/       # ya implementados — SOLO USUARIO (acceso restringido)
+│       └── por-implementar/     # pendientes de implementar
+├── src/                         # código fuente
+│   ├── backend/                 # backend Django (API REST en /api/ y admin; sirve el build del frontend)
+│   │   ├── controlStock/        # configuración del proyecto Django
+│   │   ├── Inventory/           # app principal (modelos, API REST, serializers, admin)
+│   │   │   ├── migrations/      # migraciones de Django
+│   │   │   └── management/      # comandos manage.py propios
+│   │   ├── db/                  # base de datos SQLite con datos reales de producción
+│   │   └── tools/               # scripts utilitarios independientes (un solo uso)
+│   └── frontend/                # SPA React (Vite + React Router) — única fuente de HTML
+│       ├── src/                 # código de la aplicación
+│       │   ├── pages/           # páginas (portada, inventario, productos, rótulos)
+│       │   ├── components/      # componentes reutilizables (navbar, footer, formularios)
+│       │   ├── context/         # contexto de autenticación (token + usuario)
+│       │   ├── api/             # cliente fetch centralizado (inyecta el token)
+│       │   └── assets/          # imágenes (logo)
+│       ├── public/              # estáticos (favicon, iconos)
+│       ├── dist/                # build de producción (lo genera npm run build; gitignored)
+│       └── node_modules/        # dependencias npm (gitignored)
+└── entorno/                     # entorno virtual Python (gitignored; lo crea setup.bat)
+```
+
 ## Proyecto
 
 ¿Cuándo Vence? — Sistema de Control de Vencimientos de productos perecederos para una cafetería. Django 6.0.5 + SQLite3 backend, React 19 + Vite frontend.
 
-> Ver [`OVERVIEW.md`](./OVERVIEW.md) para la descripción del objetivo del proyecto.
-> Arquitectura del sistema: [`docs/architecture/ARCHITECTURE.MD`](./docs/architecture/ARCHITECTURE.MD).
-> Requerimientos de login: `docs/requerimientos/implementados/` — REQ-LOGIN-01/02/03, derivados de los mockups de `docs/pantallas.pen`. Carpeta **solo para el usuario** (ver *Restricción de acceso*).
-> Especificaciones funcionales: [`docs/specs/funcionalidades.md`](./docs/specs/funcionalidades.md) — índice de specs, lista cada funcionalidad con su spec propia en `docs/specs/`.
+## Índice de documentación
+
+- [`OVERVIEW.md`](./OVERVIEW.md) — objetivo del proyecto.
+- [`docs/architecture/ARCHITECTURE.MD`](./docs/architecture/ARCHITECTURE.MD) — arquitectura del sistema: estructura del repositorio, modelo de datos, API REST, flujos y decisiones.
+- [`docs/specs/0000-index.md`](./docs/specs/0000-index.md) — índice de specs; cada funcionalidad tiene su spec propia en `docs/specs/`.
 
 ## Restricción de acceso — `docs/requerimientos/implementados/`
 
 `docs/requerimientos/implementados/` es **solo para el usuario**. La IA no puede leer esa carpeta — ni listar ni abrir sus archivos — a menos que el usuario lo permita explícitamente. La restricción aplica a cualquier herramienta de lectura (Read, Grep, Glob, scripts) y también a los subagentes. Si necesitás información que esté guardada ahí, pedila al usuario en lugar de leer los archivos.
+
+## Requerimientos — formato obligatorio
+
+Todos los requerimientos de `docs/requerimientos/` (tanto `implementados/` como `por-implementar/`) se redactan con el formato de los REQ-LOGIN (modelo: `docs/requerimientos/implementados/REQ-LOGIN-01-portada-acceso.md`), **un requerimiento por archivo**.
+
+**Archivo y título**
+
+- Archivo: `REQ-<ÁREA>-<NN>-<slug-en-kebab>.md` (ej. `REQ-LOGIN-02-campos-vacios.md`).
+- Título: `# REQ-<ÁREA>-<NN> — <Título corto>`.
+
+**Encabezado** — tres líneas en negrita, después del título y antes del primer `---`:
+
+- `**Mockup:**` — frame de `docs/pantallas.pen` y su nodo (o "no aplica").
+- `**Specs vigentes:**` — enlaces relativos a las specs afectadas de `docs/specs/` (ej. [`login.md`](../specs/login.md)).
+- `**Archivos implicados:**` — archivos del código que toca.
+
+**Cuerpo** — siempre estas 9 secciones numeradas, en este orden:
+
+1. `## 1. Objetivo` — prosa breve: qué debe lograr el requerimiento.
+2. `## 2. Estado actual` — cómo está hoy (bullets).
+3. `## 3. Estado objetivo (qué cambia)` — tabla `| Elemento (mockup) | Contenido | Estado |`, con estados **Nuevo**, **Cambia**, Se mantiene, **Se elimina**.
+4. `## 4. Requerimientos funcionales` — tabla `| ID | Requerimiento |` con IDs `RF-<N>.<M>`.
+5. `## 5. Requerimientos visuales / no funcionales` — tabla `| ID | Requerimiento |` con IDs `RNF-<N>.<M>`.
+6. `## 6. Casos de uso` — un `### UC-<N>.<M> — <Título>` por caso; cada uno con tabla de metadatos (Actor, Objetivo, Precondiciones, Disparador), **Flujo principal** numerado, **Flujos alternativos y excepciones** (tabla `| # | Caso | Resultado |`) y **Postcondiciones**.
+7. `## 7. Criterios de aceptación` — tabla `| ID | Criterio (Given / When / Then) |` con IDs `CA-<N>.<M>`, redactados como **Given** …, **when** …, **then** ….
+8. `## 8. Fuera de alcance` — bullets de lo que queda explícitamente afuera.
+9. `## 9. Decisiones` (o *Decisiones resueltas*) — tabla `| # | Punto | Decisión |` con las decisiones acordadas y quién las tomó (p. ej. **Confirmado (usuario):**, **Decisión (mi llamada):**).
+
+En los IDs, `<N>` es el número del requerimiento (`01`, `02`, …) y `<M>` un consecutivo interno del propio requerimiento (p. ej. `RF-2.7`, `UC-02.1`, `CA-2.4`). El encabezado y las 9 secciones se conservan también al actualizar un requerimiento existente. Las referencias a otros requerimientos se hacen con enlaces relativos entre archivos.
+
+## Superpowers — archivos y skills globales
+
+- Las skills de Superpowers y sus archivos de soporte deben permanecer en la instalación o configuración global del usuario, fuera de este repositorio. No copiarlos ni instalarlos dentro del proyecto.
+- Los artefactos temporales generados al usar Superpowers —planes de implementación, diseños, notas y archivos auxiliares— deben guardarse fuera del repositorio, en una ubicación global del usuario, para que no aparezcan en GitHub.
+- No crear carpetas `docs/superpowers/` ni otras carpetas de Superpowers en el proyecto. Si no hay una ubicación global adecuada disponible, mantener el contenido en la sesión y no escribirlo en el repositorio.
+- Al terminar la implementación, eliminar los artefactos temporales de Superpowers que se hayan creado fuera del repositorio.
+- Esta regla no aplica a la documentación funcional propia del proyecto, que se mantiene en las ubicaciones documentales indicadas en este archivo.
 
 ## Comandos de desarrollo
 
@@ -43,41 +112,14 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-## Arquitectura
-
-- `src/backend/` — backend de Django (sirve `/api/`, `/admin/` y el build de Vite en `/`)
-- `src/backend/controlStock/` — configuración del proyecto Django (settings, urls raíz)
-- `src/backend/Inventory/` — app principal: modelos (TipoProducto, CondicionVencimiento, Producto, Venta, Desperdicio), API REST (viewsets de DRF en `/api/`)
-- `src/frontend/` — React SPA (Vite, React Router), única fuente de HTML; se comunica con Django mediante el proxy `/api/` (dev) o es servido por Django (build)
-- `src/backend/db/vencimientos.db` — base de datos SQLite con datos reales de producción
-- `requirements.txt` — dependencias de Python con versiones fijadas (lo instala `setup.bat`)
-- `setup.bat` — setup de una máquina nueva (crea `entorno/`, instala dependencias, build del frontend, migraciones; requiere Python 3.13 y Node.js instalados)
-- `iniciar.bat` — arranca la app en http://127.0.0.1:8000
-- `docs/specs/` — especificación funcional + técnica por funcionalidad (`*.md`); el índice es `docs/specs/funcionalidades.md`
-
-El frontend React/Vite renderiza todo el HTML. En producción (uso diario), `npm run build` genera `src/frontend/dist/` y Django lo sirve en `/` (templates DIRS + static). Django no renderiza templates propios.
-
-## API
-
-- `POST /api/auth/login/` — devuelve un token (usuario + contraseña)
-- `GET /api/auth/me/` — información del usuario actual (requiere autenticación)
-- `GET /api/tipos/` — lista de TipoProducto (solo lectura, incluye `condiciones`)
-- `GET /api/condiciones/` — lista de CondicionVencimiento (solo lectura)
-- `GET /api/productos/` — lista de Producto (solo lectura, incluye `condicion`)
-- `GET /api/ventas/` — lista de Venta (solo lectura)
-- `GET /api/desperdicios/` — lista de Desperdicio (solo lectura)
-- `GET /api/metricas/` — rendimiento/desperdicio/ganancia por producto (solo lectura)
-
-Autenticación: `rest_framework` solo con autenticación por Token (+ Basic) — SessionAuthentication se excluye a propósito (la SPA del mismo origen enviaría la cookie de sesión y DRF exigiría CSRF). El frontend usa autenticación por token.
-
 ## Advertencias
 
-- La base de datos tiene datos reales — no borres ni reinicies `db/vencimientos.db` a la ligera
+- La base de datos tiene datos reales — no borres ni reinicies `src/backend/db/vencimientos.db` a la ligera
 - `CORS_ALLOW_ALL_ORIGINS = True` en settings (solo desarrollo)
 - Usuario por defecto: `admin` / `admin123`
 - Si instalás paquetes Python nuevos dentro del entorno, actualizá `requirements.txt` con `entorno\Scripts\python.exe -m pip freeze`
 - `entorno/` (entorno virtual) no se sube a git a propósito — `requirements.txt` lo reconstruye idéntico en cualquier máquina
 - Locale configurado en `es-ar` (español Argentina)
 - El frontend corre en el puerto 5173, Django en el 8000 — ambos deben estar corriendo para la experiencia de desarrollo completa
-- `tools/inspect_venc.py` y `tools/migrar_vencimientos.py` son scripts utilitarios independientes, no forman parte de la app Django
-- `tools/migrar_vencimientos.py` borra `condiciones_vencimiento` si se re-ejecuta — es de un solo uso (la migración real de 2026-06-24 ya se hizo; backup: `db/vencimientos_backup_2026-06-24.db`)
+- `src/backend/tools/inspect_venc.py` y `src/backend/tools/migrar_vencimientos.py` son scripts utilitarios independientes, no forman parte de la app Django
+- `src/backend/tools/migrar_vencimientos.py` borra `condiciones_vencimiento` si se re-ejecuta — es de un solo uso (la migración real de 2026-06-24 ya se hizo; backup: `src/backend/db/vencimientos_backup_2026-06-24.db`)

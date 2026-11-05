@@ -1,6 +1,6 @@
 # Sesión persistente
 
-Funcionalidad que **mantiene al usuario identificado aunque recargue la página** y **lo libera al salir** en **¿Cuándo Vence?**. Es la segunda funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **mantiene al usuario identificado aunque recargue la página** y **lo libera al salir** en **¿Cuándo Vence?**. Es la segunda funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -86,4 +86,4 @@ No hay mensaje visual de "restaurando sesión": el proceso es transparente y cas
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

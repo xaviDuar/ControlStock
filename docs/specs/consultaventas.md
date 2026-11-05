@@ -1,6 +1,6 @@
 # Consulta de ventas
 
-Funcionalidad que **permite ver el registro de ventas realizadas** en **¿Cuándo Vence?**. Es la decimoquinta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite ver el registro de ventas realizadas** en **¿Cuándo Vence?**. Es la decimoquinta funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -67,4 +67,4 @@ Funcionalidad que **permite ver el registro de ventas realizadas** en **¿Cuánd
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

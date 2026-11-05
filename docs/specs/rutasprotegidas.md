@@ -1,6 +1,6 @@
 # Rutas protegidas
 
-Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado sesión, redirigiendo a la portada** en **¿Cuándo Vence?**. Es la cuarta funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado sesión, redirigiendo a la portada** en **¿Cuándo Vence?**. Es la cuarta funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -75,4 +75,4 @@ Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado se
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).
