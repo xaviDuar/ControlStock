@@ -1,6 +1,6 @@
 # Búsqueda de productos
 
-Funcionalidad que **permite filtrar el catálogo de productos por nombre y limpiar el filtro para ver todo de nuevo** en **¿Cuándo Vence?**. Es la octava funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite filtrar el catálogo de productos por nombre y limpiar el filtro para ver todo de nuevo** en **¿Cuándo Vence?**. Es la octava funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -63,4 +63,4 @@ Funcionalidad que **permite filtrar el catálogo de productos por nombre y limpi
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

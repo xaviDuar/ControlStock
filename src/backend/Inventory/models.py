@@ -1,7 +1,16 @@
+from django.conf import settings
 from django.db import models
 from datetime import timedelta
 
 _DIAS_POR_MES = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+UNIDADES_MEDIDA = (
+    ('g', 'g'),
+    ('kg', 'kg'),
+    ('ml', 'ml'),
+    ('l', 'l'),
+    ('unidad', 'unidad'),
+    ('paquete', 'paquete'),
+)
 
 
 def _sumar_meses(fecha, meses):
@@ -87,15 +96,33 @@ class CondicionVencimiento(models.Model):
         return f'{self.id_tipo_producto_id} [{self.metodo}] {etiqueta}'
 
 
+class PerfilUsuario(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='perfil',
+    )
+    foto_perfil = models.ImageField(upload_to='perfiles/', null=True, blank=True)
+
+    class Meta:
+        db_table = 'perfil_usuario'
+        verbose_name = 'Perfil de usuario'
+        verbose_name_plural = 'Perfiles de usuario'
+
+    def __str__(self):
+        return f'Perfil de {self.usuario.username}'
+
+
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True, db_column='id_producto')
     id_tipo_producto = models.ForeignKey(
         TipoProducto, on_delete=models.CASCADE, db_column='id_tipo_producto')
     id_condicion = models.ForeignKey(
-        CondicionVencimiento, on_delete=models.PROTECT, db_column='id_condicion', null=True, blank=True)
+        CondicionVencimiento, on_delete=models.PROTECT, db_column='id_condicion')
     fecha_elaboracion = models.DateField()
-    fecha_vencimiento = models.DateField(null=True, blank=True)
-    cantidad = models.FloatField(null=True, blank=True)
+    fecha_vencimiento = models.DateField()
+    cantidad = models.FloatField()
+    unidad_medida = models.CharField(max_length=10, choices=UNIDADES_MEDIDA)
     costo_unitario = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     proveedor = models.TextField(null=True, blank=True)
 
@@ -103,9 +130,19 @@ class Producto(models.Model):
         db_table = 'producto'
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(cantidad__gt=0),
+                name='producto_cantidad_mayor_cero',
+            ),
+            models.CheckConstraint(
+                condition=models.Q(unidad_medida__in=[valor for valor, _ in UNIDADES_MEDIDA]),
+                name='producto_unidad_medida_valida',
+            ),
+        ]
 
     def save(self, *args, **kwargs):
-        if self.id_condicion_id and self.fecha_elaboracion:
+        if self.fecha_vencimiento is None and self.id_condicion_id and self.fecha_elaboracion:
             condicion = CondicionVencimiento.objects.get(pk=self.id_condicion_id)
             self.fecha_vencimiento = calcular_fecha_vencimiento(self.fecha_elaboracion, condicion)
         super().save(*args, **kwargs)

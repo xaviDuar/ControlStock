@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from Inventory.api import (
@@ -25,5 +27,11 @@ urlpatterns = [
     # SPA: sirve index.html para la raíz y cualquier ruta del frontend
     # (excepto /api/ y /admin/), permitiendo refresh/links directos.
     path('', spa, name='spa'),
-    re_path(r'^(?!api/|admin/|assets/).*', spa, name='spa-catch-all'),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    re_path(r'^(?!api/|admin/|assets/|media/).*', spa, name='spa-catch-all'),
 ]

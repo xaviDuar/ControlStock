@@ -1,6 +1,6 @@
 # Generador de rótulos
 
-Funcionalidad que **permite elegir productos y sus condiciones de conservación para preparar las etiquetas de vencimiento** en **¿Cuándo Vence?**. Es la novena funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite elegir productos y sus condiciones de conservación para preparar las etiquetas de vencimiento** en **¿Cuándo Vence?**. Es la novena funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -90,4 +90,4 @@ Funcionalidad que **permite elegir productos y sus condiciones de conservación 
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).

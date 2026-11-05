@@ -1,6 +1,6 @@
 # Carrito de rótulos
 
-Funcionalidad que **permite acumular los rótulos seleccionados, revisarlos y quitar los que ya no se necesiten** en **¿Cuándo Vence?**. Es la duodécima funcionalidad listada en [`funcionalidades.md`](./funcionalidades.md).
+Funcionalidad que **permite acumular los rótulos seleccionados, revisarlos y quitar los que ya no se necesiten** en **¿Cuándo Vence?**. Es la duodécima funcionalidad listada en [`0000-index.md`](./0000-index.md).
 
 ---
 
@@ -72,4 +72,4 @@ Funcionalidad que **permite acumular los rótulos seleccionados, revisarlos y qu
 
 ---
 
-Volver a [`funcionalidades.md`](./funcionalidades.md).
+Volver a [`0000-index.md`](./0000-index.md).
