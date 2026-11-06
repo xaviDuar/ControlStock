@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
 import EyeToggleBtn from '../components/EyeToggleBtn';
@@ -55,7 +55,7 @@ export default function PortadaPage() {
     try {
       const data = await loginUser(username, password);
       login(data.token, { username: data.username });
-      navigate('/inventario');
+      navigate('/home');
     } catch (err) {
       const esRed = err.message === 'Error de red';
       setError({
@@ -83,10 +83,7 @@ export default function PortadaPage() {
       <div className="pixel-line"></div>
 
       {user ? (
-        <>
-          <button onClick={() => navigate('/inventario')} className="btn">Ir al Inventario</button>
-          <button onClick={() => navigate('/rotulos')} className="btn btn-secondary" style={{ marginLeft: 8 }}>Crear Rótulos</button>
-        </>
+        <Navigate to="/home" replace />
       ) : (
         <form onSubmit={handleSubmit} className="login-form card">
           <div className="form-group">

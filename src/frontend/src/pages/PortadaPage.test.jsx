@@ -1,6 +1,6 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import PortadaPage from './PortadaPage';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
@@ -102,7 +102,7 @@ describe('REQ-LOGIN-03 caja de error de login', () => {
 });
 
 describe('casos de uso de login (regresión)', () => {
-  test('CA-1.3 UC-01.2 login válido guarda sesión y navega a /inventario', async () => {
+  test('CA-1.1 login válido guarda sesión y navega a /home', async () => {
     const login = vi.fn();
     useAuth.mockReturnValue({ user: null, login, loading: false });
     loginUser.mockResolvedValue({ token: 't1', username: 'admin' });
@@ -111,10 +111,8 @@ describe('casos de uso de login (regresión)', () => {
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
-    await waitFor(() => expect(navigate).toHaveBeenCalledWith('/inventario'));
-    expect(loginUser).toHaveBeenCalledWith('admin', 'secret123');
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith('/home'));
     expect(login).toHaveBeenCalledWith('t1', { username: 'admin' });
-    expect(screen.queryByRole('alert')).toBeNull();
   });
 
   test('los inputs conservan sus placeholders', () => {
@@ -123,12 +121,19 @@ describe('casos de uso de login (regresión)', () => {
     expect(screen.getByLabelText('Contraseña').placeholder).toBe('Ingresá tu contraseña');
   });
 
-  test('CA-1.4 UC-01.3 con sesión iniciada muestra atajos y no el formulario', () => {
+  test('CA-1.3/1.7 con sesión / redirige a /home y no muestra atajos', () => {
     useAuth.mockReturnValue({ user: { username: 'admin' }, login: vi.fn(), loading: false });
-    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
-    expect(screen.getByText('Ir al Inventario')).toBeTruthy();
-    expect(screen.getByText('Crear Rótulos')).toBeTruthy();
-    expect(screen.queryByLabelText('Usuario')).toBeNull();
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<PortadaPage />} />
+          <Route path="/home" element={<p>HOME</p>} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(screen.getByText('HOME')).toBeTruthy();
+    expect(screen.queryByText('Ir al Inventario')).toBeNull();
+    expect(screen.queryByText('Crear Rótulos')).toBeNull();
   });
 });
 

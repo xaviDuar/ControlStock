@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import PortadaPage from './pages/PortadaPage';
+import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
 import RotulosPage from './pages/RotulosPage';
 import ProductosPage from './pages/ProductosPage';
@@ -16,6 +17,9 @@ export default function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<PortadaPage />} />
+            <Route path="/home" element={
+              <ProtectedRoute><HomePage /></ProtectedRoute>
+            } />
             <Route path="/inventario" element={
               <ProtectedRoute><InventoryPage /></ProtectedRoute>
             } />
