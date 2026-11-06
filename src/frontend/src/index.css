@@ -617,3 +617,24 @@ input:focus, select:focus, textarea:focus {
     display: none;
   }
 }
+
+/* Foto de perfil */
+.foto-perfil {
+  width: 64px;
+  height: 64px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  flex-shrink: 0;
+}
+
+.foto-perfil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pixel-avatar {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
