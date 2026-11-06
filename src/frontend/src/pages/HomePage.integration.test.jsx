@@ -35,3 +35,16 @@ describe('REQ-HOME-01 RNF-1.4 consulta autenticada', () => {
     expect(screen.getByText('admin')).toBeTruthy();
   });
 });
+
+test('CA-2.3 la única llamada del Home es /api/auth/me/', async () => {
+  const fetchMock = vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ id: 1, username: 'admin', foto_perfil: null }),
+  });
+  vi.stubGlobal('fetch', fetchMock);
+  render(<MemoryRouter><AuthProvider><HomePage /></AuthProvider></MemoryRouter>);
+  await screen.findByRole('img', { name: 'Avatar genérico pixel-art' });
+
+  expect(fetchMock).toHaveBeenCalledTimes(1);
+  expect(fetchMock.mock.calls[0][0]).toBe('/api/auth/me/');
+});

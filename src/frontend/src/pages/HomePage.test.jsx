@@ -49,3 +49,26 @@ describe('REQ-HOME-01 bienvenida', () => {
     expect(screen.getByText('admin')).toBeTruthy();
   });
 });
+
+describe('REQ-HOME-02 paneles', () => {
+  test('CA-2.1/2.2 debajo del saludo hay dos recuadros con el aviso exacto', async () => {
+    fetchMe.mockResolvedValue({ id: 1, username: 'admin', foto_perfil: null });
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    await screen.findByRole('img', { name: 'Avatar genérico pixel-art' });
+
+    expect(screen.getByRole('heading', { name: 'Resumen del local', level: 2 })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Vencimientos próximos', level: 3 })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Último desperdicio', level: 3 })).toBeTruthy();
+    expect(screen.getAllByText('por implementar próximamente')).toHaveLength(2);
+  });
+
+  test('CA-2.5 no muestra datos reales ni ficticios', async () => {
+    fetchMe.mockResolvedValue({ id: 1, username: 'admin', foto_perfil: null });
+    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    await screen.findByRole('img', { name: 'Avatar genérico pixel-art' });
+
+    for (const dato of ['Leche entera', 'Medialunas', 'Vencido', 'Por vencer', '05/10/2026']) {
+      expect(screen.queryByText(dato)).toBeNull();
+    }
+  });
+});
