@@ -112,7 +112,9 @@ describe('casos de uso de login (regresión)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
     await waitFor(() => expect(navigate).toHaveBeenCalledWith('/home'));
+    expect(loginUser).toHaveBeenCalledWith('admin', 'secret123');
     expect(login).toHaveBeenCalledWith('t1', { username: 'admin' });
+    expect(screen.queryByRole('alert')).toBeNull();
   });
 
   test('los inputs conservan sus placeholders', () => {
