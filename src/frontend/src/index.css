@@ -710,11 +710,13 @@ input:focus, select:focus, textarea:focus {
 }
 
 .panel--vencimientos {
-  flex: 74 1 300px;
+  flex: 74 1 0;
+  min-width: 300px;
 }
 
 .panel--desperdicio {
-  flex: 34 1 280px;
+  flex: 34 1 0;
+  min-width: 280px;
 }
 
 .panel-title {
