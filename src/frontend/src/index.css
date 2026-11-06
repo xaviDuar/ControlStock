@@ -638,3 +638,45 @@ input:focus, select:focus, textarea:focus {
   height: 100%;
   image-rendering: pixelated;
 }
+
+/* Home */
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-title {
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
+
+.welcome-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  padding: 12px 14px;
+}
+
+.saludo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saludo-hola {
+  font-family: inherit;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.saludo-nombre {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
