@@ -6,7 +6,7 @@ Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado se
 
 ## Qué hace
 
-- Protege las pantallas internas (**Inventario** `/inventario` y **Rótulos** `/rotulos`): solo se pueden ver con sesión iniciada.
+- Protege las pantallas internas (**Home** `/home`, **Inventario** `/inventario` y **Rótulos** `/rotulos`): solo se pueden ver con sesión iniciada.
 - Mientras el sistema restaura la sesión guardada, no renderiza la pantalla (evita parpadeos y accesos indebidos).
 - Si el usuario no tiene sesión, lo redirige a la portada `/`, donde puede iniciar sesión.
 - En el backend, todos los endpoints de `/api/` exigen autenticación por token: sin token (o con token inválido) responden **401**.
@@ -24,7 +24,7 @@ Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado se
 | Parte | Archivo | Rol |
 |---|---|---|
 | Guard de rutas | `src/frontend/src/components/ProtectedRoute.jsx` | Devuelve `null` mientras `loading`; `<Navigate to="/" replace />` si no hay `user`; renderiza `children` si hay sesión |
-| Rutas | `src/frontend/src/App.jsx` | `/` es pública; `/inventario` y `/rotulos` están envueltas en `<ProtectedRoute>` |
+| Rutas | `src/frontend/src/App.jsx` | `/` es pública; `/home`, `/inventario` y `/rotulos` están envueltas en `<ProtectedRoute>` |
 | Estado de sesión | `src/frontend/src/context/AuthContext.jsx` | Provee `user` y `loading` |
 
 ### Backend (Django + DRF)
@@ -41,7 +41,7 @@ Funcionalidad que **impide entrar a las pantallas internas sin haber iniciado se
 2. `ProtectedRoute` evalua `loading` (falso) y `user` (nulo).
 3. Devuelve `<Navigate to="/" replace />`: el historial de navegación se reemplaza por `/` (no deja "volver" a la ruta protegida).
 4. La portada muestra el formulario de login.
-5. Si el usuario inicia sesión, `navigate("/inventario")` lo lleva directo.
+5. Si el usuario inicia sesión, `navigate("/home")` lo lleva directo al Home.
 
 ### Flujo paso a paso (acceso con sesión)
 
