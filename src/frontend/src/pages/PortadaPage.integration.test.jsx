@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import HomePage from './HomePage';
+import PortadaPage from './PortadaPage';
 import { useAuth } from '../context/AuthContext';
 
 vi.mock('../context/AuthContext', () => ({
@@ -27,7 +27,7 @@ beforeEach(() => {
 describe('REQ-LOGIN-03 RF-3.7 fallo de red real (client.js sin mock)', () => {
   test('CA-3.7 extremo a extremo: fetch que falla muestra Error de red con su ayuda', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));

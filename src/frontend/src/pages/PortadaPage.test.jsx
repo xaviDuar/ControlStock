@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import HomePage from './HomePage';
+import PortadaPage from './PortadaPage';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../api/client';
 
@@ -30,7 +30,7 @@ beforeEach(() => {
 
 describe('REQ-LOGIN-01 identidad de portada', () => {
   test('CA-1.1 muestra identidad y formulario sin párrafo descriptivo', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     expect(screen.getByAltText('¿Cuándo Vence?')).toBeTruthy();
     expect(screen.getByText('¿CUÁNDO VENCE?')).toBeTruthy();
     expect(screen.getByText('Control de vencimientos de productos perecederos')).toBeTruthy();
@@ -44,7 +44,7 @@ describe('REQ-LOGIN-01 identidad de portada', () => {
 describe('REQ-LOGIN-03 caja de error de login', () => {
   test('CA-3.1/3.2 credenciales inválidas muestran caja con título y ayuda entre contraseña y botón', async () => {
     loginUser.mockRejectedValue(new Error('Credenciales inválidas'));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'mala' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -61,7 +61,7 @@ describe('REQ-LOGIN-03 caja de error de login', () => {
 
   test('CA-3.3 conserva los datos ingresados tras el error', async () => {
     loginUser.mockRejectedValue(new Error('Credenciales inválidas'));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'mala' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -73,7 +73,7 @@ describe('REQ-LOGIN-03 caja de error de login', () => {
 
   test('CA-3.4/3.5 la caja desaparece al reintentar y reaparece si falla de nuevo', async () => {
     loginUser.mockRejectedValueOnce(new Error('Credenciales inválidas'));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'mala' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -90,7 +90,7 @@ describe('REQ-LOGIN-03 caja de error de login', () => {
 
   test('CA-3.7 fallo de red muestra Error de red con su ayuda', async () => {
     loginUser.mockRejectedValue(new Error('Error de red'));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -106,7 +106,7 @@ describe('casos de uso de login (regresión)', () => {
     const login = vi.fn();
     useAuth.mockReturnValue({ user: null, login, loading: false });
     loginUser.mockResolvedValue({ token: 't1', username: 'admin' });
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -118,14 +118,14 @@ describe('casos de uso de login (regresión)', () => {
   });
 
   test('los inputs conservan sus placeholders', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     expect(screen.getByLabelText('Usuario').placeholder).toBe('Ingresá tu usuario');
     expect(screen.getByLabelText('Contraseña').placeholder).toBe('Ingresá tu contraseña');
   });
 
   test('CA-1.4 UC-01.3 con sesión iniciada muestra atajos y no el formulario', () => {
     useAuth.mockReturnValue({ user: { username: 'admin' }, login: vi.fn(), loading: false });
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     expect(screen.getByText('Ir al Inventario')).toBeTruthy();
     expect(screen.getByText('Crear Rótulos')).toBeTruthy();
     expect(screen.queryByLabelText('Usuario')).toBeNull();
@@ -134,7 +134,7 @@ describe('casos de uso de login (regresión)', () => {
 
 describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
   test('CA-1.5 el ojo muestra el valor sin perder lo escrito y cambia el aria-label', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     const password = screen.getByLabelText('Contraseña');
     fireEvent.change(password, { target: { value: 'secreta' } });
     expect(password.type).toBe('password');
@@ -146,7 +146,7 @@ describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
   });
 
   test('CA-1.6 vuelve a enmascarar conservando el valor', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     const password = screen.getByLabelText('Contraseña');
     fireEvent.change(password, { target: { value: 'secreta' } });
     fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
@@ -156,7 +156,7 @@ describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
   });
 
   test('el botón de ojo no envía el formulario', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secret123' } });
     fireEvent.click(screen.getByRole('button', { name: 'Mostrar contraseña' }));
@@ -167,7 +167,7 @@ describe('REQ-LOGIN-01 RF-1.9/1.10 botón de ojo', () => {
 
 describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   test('CA-2.1/2.7 un solo campo vacío: mensaje debajo de ese input y ningún request', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
@@ -180,7 +180,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('CA-2.2 el mensaje va debajo del campo vacío y el foco pasa a él', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
@@ -192,7 +192,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('CA-2.4 el input faltante queda con borde ámbar y conserva el placeholder', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
@@ -202,7 +202,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('CA-2.5/2.6 completar y reintentar limpia los mensajes y el envío procede', async () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
     expect(screen.getByText('Por favor, rellená este campo.')).toBeTruthy();
@@ -216,7 +216,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('RF-2.3 el borde ámbar se limpia al escribir pero el mensaje persiste', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
     const password = screen.getByLabelText('Contraseña');
@@ -228,7 +228,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('RF-2.5 ya no hay validación nativa', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     for (const el of [screen.getByLabelText('Usuario'), screen.getByLabelText('Contraseña')]) {
       expect(el.required).toBe(false);
       expect(el.getAttribute('required')).toBeNull();
@@ -236,14 +236,14 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('con Enter en un input vacío tampoco se emite request', () => {
-    const { container } = render(<MemoryRouter><HomePage /></MemoryRouter>);
+    const { container } = render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.submit(container.querySelector('form'));
     expect(loginUser).not.toHaveBeenCalled();
   });
 
   test('un valor de solo espacios cuenta como vacío', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: '   ' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'secreta' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -255,7 +255,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('CA-2.3 ambos vacíos: solo la caja general, sin mensajes por campo', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
     expect(screen.getByText('Campos incompletos')).toBeTruthy();
@@ -267,7 +267,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('la caja general va entre Contraseña y Acceder', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
 
     const warnBox = screen.getByText('Campos incompletos').parentElement;
@@ -278,14 +278,14 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('con ambos vacíos el foco pasa a Usuario', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
     expect(document.activeElement).toBe(screen.getByLabelText('Usuario'));
   });
 
   test('la advertencia reemplaza al error previo: nunca coexisten', async () => {
     loginUser.mockRejectedValue(new Error('Credenciales inválidas'));
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'mala' } });
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
@@ -302,7 +302,7 @@ describe('REQ-LOGIN-02 validación de campos vacíos', () => {
   });
 
   test('UC-02.2 alt 3a: con un solo campo completado reaparece el mensaje individual', () => {
-    render(<MemoryRouter><HomePage /></MemoryRouter>);
+    render(<MemoryRouter><PortadaPage /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'Acceder' }));
     expect(screen.getByText('Campos incompletos')).toBeTruthy();
 

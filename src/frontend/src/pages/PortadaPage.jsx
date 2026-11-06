@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 const FIELD_MSG = 'Por favor, rellená este campo.';
 const NO_MISSING = { username: false, password: false };
 
-export default function HomePage() {
+export default function PortadaPage() {
   const { user, login } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
