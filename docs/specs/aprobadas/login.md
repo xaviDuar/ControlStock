@@ -1,6 +1,6 @@
 # Login (v2)
 
-Funcionalidad que **permite iniciar sesión con usuario y contraseña para acceder a las secciones protegidas de la página** en **¿Cuándo Vence?**. Es la primera funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite iniciar sesión con usuario y contraseña para acceder a las secciones protegidas de la página** en **¿Cuándo Vence?**. Es la primera funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -94,4 +94,4 @@ Funcionalidad que **permite iniciar sesión con usuario y contraseña para acced
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

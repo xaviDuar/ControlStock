@@ -1,7 +1,7 @@
 # REQ-HOME-02 — Paneles de vencimientos y desperdicio (placeholders)
 
 **Mockup:** `docs/pantallas.pen` → frame **`Home`** (nodo `kibN3`)
-**Specs vigentes:** [`consultainventario.md`](../../specs/consultainventario.md), [`consultadesperdicios.md`](../../specs/consultadesperdicios.md)
+**Specs vigentes:** [`consultainventario.md`](../../specs/por-aprobar/consultainventario.md), [`consultadesperdicios.md`](../../specs/por-aprobar/consultadesperdicios.md)
 **Archivos implicados:** página del Home en `src/frontend/src/pages/`, componentes de los paneles del Home
 
 ---

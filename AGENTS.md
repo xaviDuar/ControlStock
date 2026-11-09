@@ -7,6 +7,8 @@ proyectoStock/
 ├── docs/                        # documentación del proyecto
 │   ├── architecture/            # arquitectura del sistema (capas, modelo de datos, decisiones)
 │   ├── specs/                   # especificación funcional: una spec por funcionalidad + su índice
+│   │   ├── aprobadas/           # specs aprobadas — reflejan el código implementado
+│   │   └── por-aprobar/         # specs pendientes de aprobación
 │   └── requerimientos/          # requerimientos funcionales del sistema
 │       ├── implementados/       # ya implementados — SOLO USUARIO (acceso restringido)
 │       └── por-implementar/     # pendientes de implementar
@@ -57,7 +59,7 @@ Todos los requerimientos de `docs/requerimientos/` (tanto `implementados/` como 
 **Encabezado** — tres líneas en negrita, después del título y antes del primer `---`:
 
 - `**Mockup:**` — frame de `docs/pantallas.pen` y su nodo (o "no aplica").
-- `**Specs vigentes:**` — enlaces relativos a las specs afectadas de `docs/specs/` (ej. [`login.md`](../specs/login.md)).
+- `**Specs vigentes:**` — enlaces relativos a las specs afectadas de `docs/specs/` (ej. [`login.md`](../specs/aprobadas/login.md)).
 - `**Archivos implicados:**` — archivos del código que toca.
 
 **Cuerpo** — siempre estas 9 secciones numeradas, en este orden:

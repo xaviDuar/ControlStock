@@ -1,6 +1,6 @@
 # Portada (v2)
 
-Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y el formulario de login** en **¿Cuándo Vence?**. Es la sexta funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y el formulario de login** en **¿Cuándo Vence?**. Es una de las funcionalidades listadas en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -9,14 +9,14 @@ Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y
 - Es la pantalla inicial (`/`) y el punto de entrada de la aplicación.
 - Muestra la identidad de **¿Cuándo Vence?**: el logo, el título *¿CUÁNDO VENCE?*, el subtítulo *Control de vencimientos de productos perecederos* y una línea decorativa que los separa del contenido.
 - Sin sesión iniciada, presenta el formulario de acceso ([`login.md`](./login.md)).
-- Con sesión iniciada, la portada redirige a `/home` (el Home, ver requerimiento REQ-HOME-01) en lugar de mostrar el formulario.
+- Con sesión iniciada, la portada redirige a `/home` (el [Home](./home.md)) en lugar de mostrar el formulario.
 - Es pública y funciona como destino de las redirecciones: cuando una ruta protegida se pide sin sesión ([`rutasprotegidas.md`](./rutasprotegidas.md)) y al cerrar sesión ([`logout.md`](./logout.md)).
 
 ## Experiencia de usuario
 
 1. Al entrar a `/`, el usuario ve el logo, el título, el subtítulo y la línea decorativa.
 2. **Sin sesión**: debajo se muestra el formulario de acceso (campos **Usuario** y **Contraseña** y el botón **Acceder**). El Navbar no aparece.
-3. **Con sesión**: la portada redirige a `/home` (el Home, ver requerimiento REQ-HOME-01); el Navbar aparece arriba con el menú completo ([`navbar.md`](./navbar.md)).
+3. **Con sesión**: la portada redirige a `/home` (el [Home](./home.md)); el Navbar aparece arriba con el menú completo ([`navbar.md`](../por-aprobar/navbar.md)).
 4. Cualquier redirección por sesión faltante (rutas protegidas, logout) termina en esta pantalla.
 
 ---
@@ -41,7 +41,7 @@ Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y
 2. `App` renderiza `Navbar`, el `main` con las rutas y `Footer`.
 3. `PortadaPage` consulta el contexto de autenticación (`useAuth()`):
    - `user = null` → identidad + `login-form` con el formulario de acceso (ver [`login.md`](./login.md)).
-   - `user` presente → renderiza `<Navigate to="/home" replace />` y el usuario termina en el Home (ver requerimiento REQ-HOME-01).
+   - `user` presente → renderiza `<Navigate to="/home" replace />` y el usuario termina en el Home (ver [`home.md`](./home.md)).
 4. El Navbar, montado por encima, decide su propia visibilidad: sin sesión no se renderiza; con sesión muestra el menú.
 
 ### Nota sobre el backend
@@ -55,7 +55,7 @@ Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y
 | Situación | Comportamiento |
 |---|---|
 | Usuario sin sesión | Se muestra el formulario de acceso; el Navbar no se renderiza |
-| Usuario con sesión | Redirige a `/home` sin mostrar atajos (ver requerimiento REQ-HOME-01); el Navbar aparece con el menú completo |
+| Usuario con sesión | Redirige a `/home` (ver [`home.md`](./home.md)); el Navbar aparece con el menú completo |
 | Recarga de la portada | El catch-all de Django vuelve a servir `index.html`; si hay sesión guardada se restaura (ver [`sesionpersistente.md`](./sesionpersistente.md)) |
 | Llegada desde una ruta protegida sin sesión | La portada recibe al usuario con el formulario de acceso (ver [`rutasprotegidas.md`](./rutasprotegidas.md)) |
 | Llegada tras cerrar sesión | Vuelve a mostrarse el formulario de acceso (ver [`logout.md`](./logout.md)) |
@@ -71,4 +71,4 @@ Funcionalidad que **muestra la pantalla de acceso con la identidad del sistema y
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

@@ -1,6 +1,6 @@
 # Gestión de datos (admin)
 
-Funcionalidad que **permite crear, editar y borrar productos, ventas, desperdicios, tipos y condiciones desde el panel de administración de Django** en **¿Cuándo Vence?**. Es la decimoséptima funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite crear, editar y borrar productos, ventas, desperdicios, tipos y condiciones desde el panel de administración de Django** en **¿Cuándo Vence?**. Es la decimoséptima funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -71,4 +71,4 @@ Funcionalidad que **permite crear, editar y borrar productos, ventas, desperdici
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).
