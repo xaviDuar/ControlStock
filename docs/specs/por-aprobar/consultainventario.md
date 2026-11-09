@@ -1,6 +1,6 @@
 # Consulta de inventario
 
-Funcionalidad que **permite ver los lotes de producto que están en el local, con su condición y su fecha de vencimiento calculada** en **¿Cuándo Vence?**. Es la decimocuarta funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite ver los lotes de producto que están en el local, con su condición y su fecha de vencimiento calculada** en **¿Cuándo Vence?**. Es la decimocuarta funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -111,4 +111,4 @@ Funcionalidad que **permite ver los lotes de producto que están en el local, co
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

@@ -1,6 +1,6 @@
 # Cálculo automático del vencimiento
 
-Funcionalidad que **calcula la fecha de vencimiento de un producto a partir de su condición** (horas, días, meses, años, fin del día o fecha de proveedor) en **¿Cuándo Vence?**. Es la decimotercera funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **calcula la fecha de vencimiento de un producto a partir de su condición** (horas, días, meses, años, fin del día o fecha de proveedor) en **¿Cuándo Vence?**. Es la decimotercera funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -80,4 +80,4 @@ Funcionalidad que **calcula la fecha de vencimiento de un producto a partir de s
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

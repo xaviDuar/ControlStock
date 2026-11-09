@@ -1,6 +1,6 @@
 # Consulta de desperdicios
 
-Funcionalidad que **permite ver el registro de productos desechados y sus motivos** en **¿Cuándo Vence?**. Es la decimosexta funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite ver el registro de productos desechados y sus motivos** en **¿Cuándo Vence?**. Es la decimosexta funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -69,4 +69,4 @@ Funcionalidad que **permite ver el registro de productos desechados y sus motivo
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

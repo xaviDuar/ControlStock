@@ -1,6 +1,6 @@
 # Consulta de productos
 
-Funcionalidad que **permite ver el catálogo de productos que vende la franquicia, con sus reglas de vencimiento según el estado de conservación** en **¿Cuándo Vence?**. Es la séptima funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite ver el catálogo de productos que vende la franquicia, con sus reglas de vencimiento según el estado de conservación** en **¿Cuándo Vence?**. Es la séptima funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -75,4 +75,4 @@ Funcionalidad que **permite ver el catálogo de productos que vende la franquici
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

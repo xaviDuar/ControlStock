@@ -1,6 +1,6 @@
 # Fecha de elaboración con preview
 
-Funcionalidad que **permite cargar la fecha de elaboración y ver al instante la fecha de vencimiento resultante** en **¿Cuándo Vence?**. Es la undécima funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **permite cargar la fecha de elaboración y ver al instante la fecha de vencimiento resultante** en **¿Cuándo Vence?**. Es la undécima funcionalidad listada en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -72,4 +72,4 @@ Funcionalidad que **permite cargar la fecha de elaboración y ver al instante la
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

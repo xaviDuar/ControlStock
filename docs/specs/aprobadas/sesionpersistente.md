@@ -1,6 +1,6 @@
 # Sesión persistente
 
-Funcionalidad que **mantiene al usuario identificado aunque recargue la página** y **lo libera al salir** en **¿Cuándo Vence?**. Es la segunda funcionalidad listada en [`0000-index.md`](./0000-index.md).
+Funcionalidad que **mantiene al usuario identificado aunque recargue la página** y **lo libera al salir** en **¿Cuándo Vence?**. Es una de las funcionalidades listadas en [`0000-index.md`](../0000-index.md).
 
 ---
 
@@ -13,9 +13,9 @@ Funcionalidad que **mantiene al usuario identificado aunque recargue la página*
 
 ## Experiencia de usuario
 
-1. El usuario inicia sesión y navega a `/inventario` (o `/rotulos`).
+1. El usuario inicia sesión y la aplicación lo lleva a `/home`.
 2. Recarga la página (F5, o refresh del navegador): la URL se vuelve a pedir al servidor (Django la resuelve con el catch-all SPA) y la SPA se monta de nuevo.
-3. Al montarse, la aplicación detecta la sesión guardada y restaura al usuario: sigue logueado, el menú del Navbar muestra *Inventario*, *Rótulos* y **Salir (usuario)**, y puede seguir navegando sin volver a escribir usuario y contraseña.
+3. Al montarse, la aplicación detecta la sesión guardada y restaura al usuario: sigue logueado, el menú del Navbar muestra *Inventario*, *Rótulos*, *Productos* y **Salir (usuario)**, y puede seguir navegando sin volver a escribir usuario y contraseña.
 4. Si en cambio el usuario estaba sin sesión (o cerró sesión) y recarga una ruta protegida, la aplicación lo redirige a la portada `/`.
 5. Al presionar **Salir (usuario)**, la sesión se libera: vuelve a la portada y el formulario de login vuelve a estar disponible.
 
@@ -79,11 +79,11 @@ No hay mensaje visual de "restaurando sesión": el proceso es transparente y cas
 
 ## Limitaciones conocidas
 
-- El token no se valida contra el servidor al cargar la SPA (el endpoint `GET /api/auth/me/` existe en el backend pero el frontend no lo consume).
+- El token no se valida contra el servidor al cargar la SPA: `GET /api/auth/me/` solo se consume en el Home para traer la foto de perfil, y si falla no se cierra la sesión (ver [`home.md`](./home.md)).
 - `JSON.parse` de `localStorage["auth"]` no está protegido contra datos corruptos.
 - No hay expiración de sesión por tiempo ni renovación de token.
 - El logout no invalida el token en el backend.
 
 ---
 
-Volver a [`0000-index.md`](./0000-index.md).
+Volver a [`0000-index.md`](../0000-index.md).

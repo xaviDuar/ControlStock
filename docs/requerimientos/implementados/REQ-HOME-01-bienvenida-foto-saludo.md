@@ -1,7 +1,7 @@
 # REQ-HOME-01 — Bienvenida, foto y saludo
 
 **Mockup:** `docs/pantallas.pen` → frame **`Home`** (nodo `kibN3`)
-**Specs vigentes:** [`login.md`](../../specs/login.md), [`portada.md`](../../specs/portada.md), [`rutasprotegidas.md`](../../specs/rutasprotegidas.md)
+**Specs vigentes:** [`login.md`](../../specs/aprobadas/login.md), [`portada.md`](../../specs/aprobadas/portada.md), [`rutasprotegidas.md`](../../specs/aprobadas/rutasprotegidas.md)
 **Archivos implicados:** `src/frontend/src/App.jsx`, `src/frontend/src/pages/HomePage.jsx`, nueva página del Home en `src/frontend/src/pages/`, `src/frontend/src/context/AuthContext.jsx`, `src/frontend/src/components/ProtectedRoute.jsx`
 
 ---

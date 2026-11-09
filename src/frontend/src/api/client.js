@@ -32,3 +32,7 @@ export function fetchProductos(query = '') {
   const q = query ? `?search=${encodeURIComponent(query)}` : '';
   return api(`/productos/${q}`);
 }
+
+export function fetchMe() {
+  return api('/auth/me/');
+}

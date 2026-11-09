@@ -617,3 +617,117 @@ input:focus, select:focus, textarea:focus {
     display: none;
   }
 }
+
+/* Foto de perfil */
+.foto-perfil {
+  width: 64px;
+  height: 64px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  flex-shrink: 0;
+}
+
+.foto-perfil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pixel-avatar {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+/* Home */
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home-title {
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
+
+.welcome-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  padding: 12px 14px;
+}
+
+.saludo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saludo-hola {
+  font-family: inherit;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.saludo-nombre {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
+
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resumen-title {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
+
+.resumen-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  padding: 18px;
+}
+
+.panel--vencimientos {
+  flex: 74 1 0;
+  min-width: 300px;
+}
+
+.panel--desperdicio {
+  flex: 34 1 0;
+  min-width: 280px;
+}
+
+.panel-title {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--accent-dark);
+}
+
+.panel-aviso {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+}
